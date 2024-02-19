@@ -1,10 +1,12 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
-import * as T from "../types";
-import * as S from "./styled";
 import { useEffect, useState } from "react";
 
-function VisualItem(props: { item: T.TMovieInfo }) {
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+
+import * as S from "./styled";
+import * as T from "@/pages/Main/types";
+
+function VisualItem(props: { item: T.TPopularMovie }) {
   const { item } = props;
   const [moreDesc, setMoreDesc] = useState<boolean>(true);
   const [overview, setOverview] = useState<string>("");
@@ -84,7 +86,9 @@ function VisualItem(props: { item: T.TMovieInfo }) {
   );
 }
 
-export default function VisualSlider(props: { movies: T.TMovieInfo[] | [] }) {
+export default function VisualSlider(props: {
+  movies: T.TPopularMovie[] | [];
+}) {
   const { movies } = props;
 
   return (

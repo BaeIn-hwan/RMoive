@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const GnbLink = styled(Link)`
   position: relative;
   font-size: 18px;
+  font-weight: 700;
   color: ${(props) => props.theme.colors.text};
   transition: all 0.25s linear;
 
@@ -39,7 +40,7 @@ export const GnbItem = styled.li`
 export const GnbList = styled.ul`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
 `;
 
 export const Gnb = styled.nav``;

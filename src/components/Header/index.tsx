@@ -9,11 +9,11 @@ const gnbList = [
     path: "/",
   },
   {
-    title: "Movies",
+    title: "Movie",
     path: "/movie",
   },
   {
-    title: "TV Series",
+    title: "TV",
     path: "/tv",
   },
 ];
