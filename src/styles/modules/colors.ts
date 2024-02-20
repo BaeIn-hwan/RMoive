@@ -5,6 +5,8 @@ export const themes: DefaultTheme = {
     text: "#fff",
     background: "#2a2a2a",
     primary: "#febe98",
+    skeletonBg: "#f7f7f7",
+    skeletonColor: "#e7e7e7",
   },
 
   primary1: "#1D5AFF",

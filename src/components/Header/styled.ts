@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const GnbLink = styled(Link)`
   position: relative;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: ${(props) => props.theme.colors.text};
   transition: all 0.25s linear;
@@ -65,8 +65,8 @@ export const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 75px;
-  padding: 0 30px;
+  height: 80px;
+  padding: 0 40px;
   transition: all 0.35s linear;
 
   /* &.active {

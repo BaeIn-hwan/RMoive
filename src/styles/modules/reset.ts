@@ -60,6 +60,7 @@ export const Reset = css`
       "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
       "Helvetica Neue", sans-serif;
     line-height: normal;
+    -webkit-font-smoothing: antialiased;
   }
 
   a,

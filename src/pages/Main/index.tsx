@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import * as S from "./styled";
 import * as T from "./types";
 
-import VisualSlider from "@/components/VisualSlide";
-import SliderItem from "@/components/SliderItem";
+import VisualMovie from "./VisualMovie";
+import MovieSlider from "@/components/MovieSlider";
 
 export default function Main() {
   const [visualMovies, setVisualMovies] = useState<T.TPopularMovie[] | []>([]);
@@ -27,7 +27,7 @@ export default function Main() {
         response.data.results &&
         response.data.results.length
       ) {
-        setVisualMovies(response.data.results.slice(0, 5));
+        setVisualMovies(response.data.results.slice(0, 4));
       }
     } catch (error) {
       console.error(`GetPopularMovies Error.. ${error}`);
@@ -67,32 +67,21 @@ export default function Main() {
       <S.Visual>
         <h2 className="blind">Visual</h2>
 
-        <VisualSlider movies={visualMovies} />
+        <VisualMovie movies={visualMovies} />
+        {/* <VisualSlider movies={visualMovies} /> */}
       </S.Visual>
 
-      <section>
-        <h2>인기 급!상승 컨텐츠</h2>
-        {/* <SliderList /> */}
-      </section>
+      <div>
+        <section>
+          <h2>인기 급!상승 컨텐츠</h2>
+          {/* <SliderList /> */}
+          {/* <MovieSlider> */}
+        </section>
 
-      <section>
-        <h2>인기 컨텐츠</h2>
-        {trendMovies.map((item) => (
-          <SliderItem
-            image={
-              <div style={{ borderRadius: "10px" }}>
-                <div>aaa</div>
-                <SliderItem.Image src={item.poster_path} />
-              </div>
-            }
-            info={
-              <SliderItem.Info>
-                <div>블라브라</div>
-              </SliderItem.Info>
-            }
-          />
-        ))}
-      </section>
+        <section style={{ height: "100vh", background: "blue" }}>
+          <h2>인기 컨텐츠</h2>
+        </section>
+      </div>
     </S.Main>
   );
 }

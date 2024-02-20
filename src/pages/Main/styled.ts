@@ -5,5 +5,5 @@ export const Visual = styled.section`
 `;
 
 export const Main = styled.main`
-  margin-top: -75px;
+  margin-top: -80px;
 `;
