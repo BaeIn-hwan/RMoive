@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 

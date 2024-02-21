@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MovieCardTitle = styled.span`
   display: block;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: #fff;
 `;
@@ -19,6 +20,7 @@ export const MovieCardThumb = styled.img`
   left: 0;
   max-width: 100%;
   aspect-ratio: 3 / 4;
+  transition: all 0.25s ease;
 `;
 
 export const MovieCardImage = styled.figure`
@@ -26,8 +28,13 @@ export const MovieCardImage = styled.figure`
   position: relative;
   max-width: 300px;
   margin: 0 auto;
+  border-radius: 10px;
   font-size: 0;
   aspect-ratio: 3 / 4;
 `;
 
-export const MovieCardWrapper = styled.div``;
+export const MovieCardLink = styled(Link)`
+  &:hover ${MovieCardThumb} {
+    transform: scale(1.1);
+  }
+`;

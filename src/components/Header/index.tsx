@@ -5,10 +5,6 @@ import * as S from "./styled";
 
 const gnbList = [
   {
-    title: "Home",
-    path: "/",
-  },
-  {
     title: "Movie",
     path: "/movie",
   },

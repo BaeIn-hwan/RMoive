@@ -2,8 +2,6 @@ import { useEffect } from "react";
 
 import type { SwiperProps } from "swiper/react";
 
-import "swiper/swiper-bundle.css";
-
 import * as T from "../types";
 import * as S from "./styled";
 
@@ -45,14 +43,14 @@ export default function VisualMovie(props: IPropsVisual) {
         <S.VisualSlide key={item.id}>
           <S.VisualContainer
             style={{
-              backgroundImage: `url(${
-                import.meta.env.VITE_IMAGE_URL
-              }/original/${item.backdrop_path})`,
+              backgroundImage: `url(${import.meta.env.VITE_IMAGE_URL}/original${
+                item.backdrop_path
+              })`,
             }}
           >
             <S.VisualImage>
               <S.VisualThumb
-                src={`${import.meta.env.VITE_IMAGE_URL}original/${
+                src={`${import.meta.env.VITE_IMAGE_URL}original${
                   item.poster_path
                 }`}
                 alt=""
@@ -61,9 +59,9 @@ export default function VisualMovie(props: IPropsVisual) {
 
             <S.VisualInfo>
               <S.VisualTitle>
-                {item.title}
+                {item.title}{" "}
                 {item.original_language !== "ko" && (
-                  <> ({item.original_title})</>
+                  <>({item.original_title})</>
                 )}
               </S.VisualTitle>
               {item.overview && (

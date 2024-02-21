@@ -12,11 +12,11 @@ const moives: RouteObject[] = [
     index: true,
   },
   {
-    path: "/:category",
+    path: "/:type",
     element: <CategoryList />,
   },
   {
-    path: "/:category/:id",
+    path: "/:type/:id",
     element: <CategoryDetail />,
   },
 ];

@@ -9,14 +9,14 @@ import Genres from "@/components/Geners";
 import MovieList from "@/components/MovieList";
 
 export default function CategoryList() {
-  const { category } = useParams();
+  const { type } = useParams();
   const [genres, setGenres] = useState([]);
-  const [movieList, setMovieList] = useState([]);
+  const [list, setList] = useState([]);
   const [selectGenres, setSelectGenres] = useState<number>(0);
 
   const getGenres = async () => {
     try {
-      const response = await apiRequest(`/genre/${category}/list`, {
+      const response = await apiRequest(`/genre/${type}/list`, {
         method: "get",
         params: {
           language: "ko-kr",
@@ -36,9 +36,9 @@ export default function CategoryList() {
     }
   };
 
-  const getDiscoverList = async () => {
+  const getCategoryList = async () => {
     try {
-      const response = await apiRequest(`/discover/${category}`, {
+      const response = await apiRequest(`/discover/${type}`, {
         method: "get",
         params: {
           language: "ko-kr",
@@ -51,22 +51,22 @@ export default function CategoryList() {
         response.data.results &&
         response.data.results.length
       ) {
-        setMovieList(response.data.results);
+        setList(response.data.results);
       }
     } catch (error) {
-      console.error(`GetDiscoverMovies Error.. ${error}`);
+      console.error(`GetCategoryList Error.. ${error}`);
     }
   };
 
   useEffect(() => {
     setSelectGenres(0);
     getGenres();
-    getDiscoverList();
-  }, [category]);
+    getCategoryList();
+  }, [type]);
 
   return (
     <S.Container>
-      <S.Title>{category?.toUpperCase()} LIST</S.Title>
+      <S.Title>{type === "movie" ? "영화" : "프로그램"} 목록</S.Title>
 
       <S.Nav>
         <Genres
@@ -77,7 +77,7 @@ export default function CategoryList() {
       </S.Nav>
 
       <S.List>
-        <MovieList list={movieList} width={250} />
+        <MovieList list={list} width={250} />
       </S.List>
     </S.Container>
   );
