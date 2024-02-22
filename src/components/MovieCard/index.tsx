@@ -1,20 +1,21 @@
 import * as S from "./styled";
+import * as T from "./types";
 
-export default function MovieCard(props) {
+export default function MovieItem(props: T.IPropsItem) {
   const { type, item } = props;
 
   return (
-    <S.MovieCardLink to={`/${type}/${item.id}`}>
-      <S.MovieCardImage>
-        <S.MovieCardThumb
-          src={`${import.meta.env.VITE_IMAGE_URL}w300${item.poster_path})`}
+    <S.CardLink to={`/${type}/${item.id}`}>
+      <S.CardImage>
+        <S.CardThumb
+          src={`${import.meta.env.VITE_IMAGE_URL}original${item.poster_path})`}
           alt=""
         />
-      </S.MovieCardImage>
+      </S.CardImage>
 
-      <S.MovieCardInfo>
-        <S.MovieCardTitle>{item.title || item.name}</S.MovieCardTitle>
-      </S.MovieCardInfo>
-    </S.MovieCardLink>
+      <S.CardInfo>
+        <S.CardTitle>{item.title || item.name}</S.CardTitle>
+      </S.CardInfo>
+    </S.CardLink>
   );
 }

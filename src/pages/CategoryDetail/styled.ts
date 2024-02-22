@@ -8,16 +8,24 @@ const SectionTitle = css`
 `;
 
 const SectionLayout = css`
-  max-width: 1045px;
-  margin: 0 auto;
-  padding-top: 100px;
+  max-width: 1280px;
+  margin: 100px auto 0;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 `;
+
 export const SimilarTitle = styled.h2`
   ${SectionTitle};
 `;
 
 export const Similar = styled.section`
   ${SectionLayout};
+
+  & > div {
+    position: relative;
+  }
 `;
 
 export const CastSharacter = styled.span`
@@ -36,14 +44,23 @@ export const CastInfo = styled.div`
 `;
 
 export const CastThumb = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   max-width: 100%;
+  margin: auto;
   transition: all 0.25s ease;
 `;
 
 export const CastImage = styled.figure`
   overflow: hidden;
-  border-radius: 10px;
+  position: relative;
+  border-radius: 8px;
+  background: #b3b3b3;
   font-size: 0;
+  aspect-ratio: 2 / 2.75;
 `;
 
 export const CastItem = styled.li`
@@ -70,7 +87,7 @@ export const Cast = styled.section`
 `;
 
 export const ContentOverview = styled.p`
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 16px;
   color: #fff;
   line-height: 28px;
@@ -80,7 +97,7 @@ export const ContentOverview = styled.p`
 
 export const ContentTagLine = styled.span`
   display: block;
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 24px;
   font-weight: 700;
   color: #fff;
@@ -100,18 +117,19 @@ export const ContentInfo = styled.div`
 
 export const ContentThumb = styled.img`
   max-width: 100%;
+  border-radius: inherit;
 `;
 
 export const ContentImage = styled.figure`
   flex: 1 1;
+  border-radius: 8px;
   font-size: 0;
 `;
 
 export const Content = styled.section`
   display: flex;
   gap: 50px;
-  max-width: 1045px;
-  margin: 0 auto;
+  ${SectionLayout};
 `;
 
 export const PosterImage = styled.div`

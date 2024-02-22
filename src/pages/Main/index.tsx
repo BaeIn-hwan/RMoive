@@ -5,10 +5,13 @@ import * as S from "./styled";
 import * as T from "./types";
 
 import VisualMovie from "./VisualMovie";
-import MovieSlider from "@/components/MovieSlider";
+import ContentMovie from "./ContentMovie";
 
 export default function Main() {
   const [visualMovies, setVisualMovies] = useState<T.TPopularMovie[] | []>([]);
+  const [popularMovies, setPopularMovies] = useState<T.TPopularMovie[] | []>(
+    []
+  );
   const [trendMovies, setTrendMovies] = useState<T.TTrendMovie[] | []>([]);
 
   const getPopularMovies = async () => {
@@ -28,6 +31,7 @@ export default function Main() {
         response.data.results.length
       ) {
         setVisualMovies(response.data.results.slice(0, 4));
+        setPopularMovies(response.data.results);
       }
     } catch (error) {
       console.error(`GetPopularMovies Error.. ${error}`);
@@ -50,7 +54,7 @@ export default function Main() {
         response.data.results &&
         response.data.results.length
       ) {
-        setTrendMovies(response.data.results);
+        setTrendMovies(response.data.results.slice(0, 10));
       }
     } catch (error) {
       console.error(`GetTrendingMovies Error.. ${error}`);
@@ -67,21 +71,20 @@ export default function Main() {
       <S.Visual>
         <h2 className="blind">Visual</h2>
 
-        <VisualMovie movies={visualMovies} />
-        {/* <VisualSlider movies={visualMovies} /> */}
+        <VisualMovie list={visualMovies} />
       </S.Visual>
 
-      <div>
-        <section>
-          <h2>인기 급!상승 컨텐츠</h2>
-          {/* <SliderList /> */}
-          {/* <MovieSlider> */}
-        </section>
+      <S.Section>
+        <S.SectionTitle>급상승 인기 컨텐츠</S.SectionTitle>
 
-        <section style={{ height: "100vh", background: "blue" }}>
-          <h2>인기 컨텐츠</h2>
-        </section>
-      </div>
+        <ContentMovie list={popularMovies} />
+      </S.Section>
+
+      <S.Section>
+        <S.SectionTitle>인기 컨텐츠</S.SectionTitle>
+
+        <ContentMovie list={trendMovies} />
+      </S.Section>
     </S.Main>
   );
 }

@@ -1,3 +1,5 @@
+import { TItemKeys } from "@/components/MovieCard/types";
+
 export interface IDetail {
   adult: boolean;
   backdrop_path: string;
@@ -54,3 +56,5 @@ export interface ICast {
   credit_id: string;
   order: number;
 }
+
+export interface ISimilar extends TItemKeys {}

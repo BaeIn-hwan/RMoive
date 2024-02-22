@@ -15,5 +15,9 @@ export const GlobalStyle = createGlobalStyle`
 
    body {
      background-color: ${themes.colors.background};
+
+     &.scroll-lock {
+      overflow: hidden;
+     }
   }
 `;

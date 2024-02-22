@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 import apiRequest from "@/apis";
 
@@ -10,12 +9,16 @@ import * as T from "./types";
 import MovieCard from "@/components/MovieCard";
 
 import noImage from "@/assets/img_no-people.webp";
+import MovieSlider from "@/components/MovieSlider";
 
 export default function CategoryDetail() {
-  const { type, id } = useParams();
+  const { type, id } = useParams<{
+    type?: "movie" | "tv";
+    id: string | undefined;
+  }>();
   const [detail, setDetail] = useState<T.IDetail | null>(null);
   const [casts, setCasts] = useState<T.ICast[] | []>([]);
-  const [similars, setSimilars] = useState<T.ICast[] | []>([]);
+  const [similars, setSimilars] = useState<T.ISimilar[] | []>([]);
 
   const getDetail = async () => {
     try {
@@ -130,7 +133,7 @@ export default function CategoryDetail() {
                 <S.CastThumb
                   src={
                     cast.profile_path
-                      ? `${import.meta.env.VITE_IMAGE_URL}w185${
+                      ? `${import.meta.env.VITE_IMAGE_URL}w300${
                           cast.profile_path
                         }`
                       : `${noImage}`
@@ -151,13 +154,15 @@ export default function CategoryDetail() {
           관련 {type === "movie" ? "영화" : "프로그램"} 추천
         </S.SimilarTitle>
 
-        <Swiper grabCursor slidesPerView={4.5} spaceBetween={12}>
-          {similars.map((item) => (
-            <SwiperSlide key={item.id}>
-              <MovieCard type={type} item={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <MovieSlider options={{ slidesPerView: 5.5, spaceBetween: 16 }}>
+          {similars.map((item) => {
+            return (
+              <MovieSlider.Item key={item.id}>
+                <MovieCard type={type} item={item} />
+              </MovieSlider.Item>
+            );
+          })}
+        </MovieSlider>
       </S.Similar>
     </S.Container>
   );

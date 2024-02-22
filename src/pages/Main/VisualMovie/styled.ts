@@ -17,8 +17,15 @@ const VisualBtnCommon = css`
   padding: 0 20px;
   border-radius: 24px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 600;
   transition: all 0.25s linear;
+`;
+
+export const SkeletonOverviewText = styled.span`
+  display: block;
+  width: 100%;
+  height: 23px;
+  background-color: ${(props) => props.theme.colors.skeletonColor};
 `;
 
 export const SkeletonOverview = styled.div`
@@ -26,18 +33,10 @@ export const SkeletonOverview = styled.div`
   flex-direction: column;
   gap: 6px;
   margin-top: 16px;
-
-  span {
-    display: block;
-    width: 100%;
-    height: 23px;
-    background-color: ${(props) => props.theme.colors.skeletonColor};
-  }
 `;
 
 export const SkeletonTitle = styled.div`
   height: 52px;
-
   background-color: ${(props) => props.theme.colors.skeletonColor};
 `;
 
@@ -49,12 +48,22 @@ export const SkeletonInfo = styled.div`
 export const SkeletonImage = styled.div`
   width: 360px;
   background-color: ${(props) => props.theme.colors.skeletonColor};
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
 `;
 
 export const SkeletonContainer = styled.div`
   ${ContainerLayout};
   background-color: ${(props) => props.theme.colors.skeletonBg};
+`;
+
+export const TrailerPopupVideo = styled.iframe`
+  width: 100%;
+  height: 100%;
+`;
+
+export const TrailerPopup = styled.div`
+  height: 400px;
+  aspect-ratio: 4 / 3;
 `;
 
 export const VisualTrailer = styled.button.attrs({ type: "button" })`
@@ -122,7 +131,7 @@ export const VisualInfo = styled.div`
 export const VisualThumb = styled.img`
   max-width: 100%;
   border-radius: inherit;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
 `;
 
 export const VisualImage = styled.figure`
@@ -133,7 +142,7 @@ export const VisualImage = styled.figure`
   opacity: 0;
   transform: scale(0);
   transition: opacity 1s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    transform 0.5s ease-in;
+    transform 0.35s ease-in;
 
   &:before {
     content: "";
@@ -146,7 +155,7 @@ export const VisualImage = styled.figure`
   }
 `;
 
-export const VisualContainer = styled.div`
+export const VisualContent = styled.div`
   ${ContainerLayout};
   position: relative;
   background-repeat: no-repeat;

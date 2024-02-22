@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
-export const List = styled.div`
+export const Item = styled.li`
+  width: 240px;
+`;
+
+export const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 20px;
   margin-top: 40px;
 `;
 
@@ -14,7 +21,13 @@ export const Title = styled.h2`
   color: #fff;
 `;
 
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Container = styled.section`
-  max-width: 1045px;
+  max-width: 1280px;
   margin: 0 auto;
 `;
