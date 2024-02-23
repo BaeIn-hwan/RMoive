@@ -60,16 +60,31 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
   height: 80px;
   padding: 0 40px;
-  transition: all 0.35s linear;
+  transition: background-color 0.35s linear;
 
-  /* &.active {
-    height: 60px;
-  } */
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(180deg, rgb(0 0 0 / 50%), transparent);
+  }
+
+  &.active {
+    box-shadow: 0 0 0 0 #000;
+
+    &::before {
+      backdrop-filter: blur(10px);
+    }
+  }
 `;

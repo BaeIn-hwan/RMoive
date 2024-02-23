@@ -85,43 +85,51 @@ export default function CategoryDetail() {
     getDetail();
     getCast();
     getSimilar();
-
-    window.scrollTo(0, 0);
   }, [type, id]);
 
   if (!detail) return;
 
   return (
     <S.Container>
-      <S.PosterImage
+      <S.BackgroundPoster
         style={{
           backgroundImage: `url(${import.meta.env.VITE_IMAGE_URL}original${
             detail.backdrop_path
           })`,
         }}
-      ></S.PosterImage>
+      ></S.BackgroundPoster>
 
-      <S.Content>
-        <S.ContentImage>
-          <S.ContentThumb
+      <S.Detail>
+        <S.Poster>
+          <S.PosterThumb
             src={`${import.meta.env.VITE_IMAGE_URL}original${
               detail.poster_path
             }`}
             alt=""
           />
-        </S.ContentImage>
+        </S.Poster>
 
-        <S.ContentInfo>
-          <S.ContentTitle>
-            {detail.title}{" "}
+        <S.Infomation>
+          {detail.genres && detail.genres.length && (
+            <S.Genres>
+              {detail.genres.map((item) => (
+                <S.GenresItem key={item.id}>{item.name}</S.GenresItem>
+              ))}
+            </S.Genres>
+          )}
+
+          <S.Title>
+            {detail.title || detail.name}{" "}
             {detail.original_language !== "ko" && (
-              <>({detail.original_title})</>
+              <>({detail.original_title || detail.original_name})</>
             )}
-          </S.ContentTitle>
-          <S.ContentTagLine>{detail.tagline}</S.ContentTagLine>
-          <S.ContentOverview>{detail.overview}</S.ContentOverview>
-        </S.ContentInfo>
-      </S.Content>
+          </S.Title>
+
+          {detail.tagline && <S.TagLine>{detail.tagline}</S.TagLine>}
+
+          {detail.overview && <S.Overview>{detail.overview}</S.Overview>}
+        </S.Infomation>
+      </S.Detail>
 
       <S.Cast>
         <S.CastTitle>출연진</S.CastTitle>
@@ -149,21 +157,23 @@ export default function CategoryDetail() {
         </S.CastList>
       </S.Cast>
 
-      <S.Similar>
-        <S.SimilarTitle>
-          관련 {type === "movie" ? "영화" : "프로그램"} 추천
-        </S.SimilarTitle>
+      {similars && (
+        <S.Similar>
+          <S.SimilarTitle>
+            관련 {type === "movie" ? "영화" : "TV 프로그램"} 추천
+          </S.SimilarTitle>
 
-        <MovieSlider options={{ slidesPerView: 5.5, spaceBetween: 16 }}>
-          {similars.map((item) => {
-            return (
-              <MovieSlider.Item key={item.id}>
-                <MovieCard type={type} item={item} />
-              </MovieSlider.Item>
-            );
-          })}
-        </MovieSlider>
-      </S.Similar>
+          <MovieSlider options={{ slidesPerView: 5, spaceBetween: 16 }}>
+            {similars.map((item) => {
+              return (
+                <MovieSlider.Item key={item.id}>
+                  <MovieCard type={type} item={item} />
+                </MovieSlider.Item>
+              );
+            })}
+          </MovieSlider>
+        </S.Similar>
+      )}
     </S.Container>
   );
 }

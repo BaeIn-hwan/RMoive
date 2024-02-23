@@ -102,14 +102,12 @@ export default function CategoryList() {
     // setSelectGenres(0);
     // getGenres();
     getCategoryList();
-
-    window.scrollTo(0, 0);
   }, [type]);
 
   return (
     <S.Container>
       <S.Header>
-        <S.Title>{type === "movie" ? "영화" : "프로그램"} 목록</S.Title>
+        <S.Title>{type === "movie" ? "영화" : "TV 프로그램"} 목록</S.Title>
 
         <MovieSearch
           value={searchKeyword}

@@ -5,7 +5,7 @@ export const CardTitle = styled.span`
   display: block;
   font-size: 18px;
   font-weight: 500;
-  color: #fff;
+  color: #a1a1a1;
 `;
 
 export const CardInfo = styled.div`
@@ -36,6 +36,10 @@ export const CardLink = styled(Link)`
   &:hover {
     ${CardThumb} {
       transform: scale(1.1);
+    }
+
+    ${CardTitle} {
+      color: #fff;
     }
   }
 `;

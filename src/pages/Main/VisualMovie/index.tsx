@@ -74,6 +74,7 @@ export default function VisualMovie(props: T.IPropsVisual) {
                     item.poster_path
                   }`}
                   alt=""
+                  loading="lazy"
                 />
               </S.VisualImage>
 

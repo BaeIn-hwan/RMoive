@@ -1,26 +1,34 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  padding: 10px 12px;
+  padding: 15px;
   font-size: 18px;
   font-weight: 600;
 `;
 
 export const CloseIcon = styled.button.attrs({ type: "button" })`
-  position: absolute;
-  top: -50px;
-  right: 0;
   width: 40px;
   height: 40px;
   color: #fff;
 `;
 
+export const CloseArea = styled.div`
+  margin-bottom: 10px;
+  font-size: 0;
+  text-align: right;
+`;
+
 export const Modal = styled.div`
+  overflow: hidden;
   position: relative;
-  min-width: 400px;
-  max-width: 80%;
+  border-radius: 6px;
   background-color: #fff;
   box-shadow: 0 12px 24px rgba(33, 38, 45, 0.12);
+`;
+
+export const Container = styled.div`
+  min-width: 400px;
+  max-width: 80%;
 `;
 
 export const Dimmed = styled.div`

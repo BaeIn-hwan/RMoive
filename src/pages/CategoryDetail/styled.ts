@@ -9,11 +9,6 @@ const SectionTitle = css`
 
 const SectionLayout = css`
   max-width: 1280px;
-  margin: 100px auto 0;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
 `;
 
 export const SimilarTitle = styled.h2`
@@ -22,6 +17,7 @@ export const SimilarTitle = styled.h2`
 
 export const Similar = styled.section`
   ${SectionLayout};
+  margin: 100px auto 0;
 
   & > div {
     position: relative;
@@ -84,10 +80,11 @@ export const CastTitle = styled.h2`
 
 export const Cast = styled.section`
   ${SectionLayout};
+  margin: 100px auto 0;
 `;
 
-export const ContentOverview = styled.p`
-  margin-top: 30px;
+export const Overview = styled.p`
+  margin-top: 35px;
   font-size: 16px;
   color: #fff;
   line-height: 28px;
@@ -95,9 +92,8 @@ export const ContentOverview = styled.p`
   word-wrap: break-word;
 `;
 
-export const ContentTagLine = styled.span`
+export const TagLine = styled.span`
   display: block;
-  margin-top: 10px;
   font-size: 24px;
   font-weight: 700;
   color: #fff;
@@ -105,34 +101,51 @@ export const ContentTagLine = styled.span`
   word-wrap: break-word;
 `;
 
-export const ContentTitle = styled.h2`
+export const Title = styled.h2`
   font-size: 42px;
   font-weight: 800;
   color: #fff;
 `;
 
-export const ContentInfo = styled.div`
+export const GenresItem = styled.div`
+  display: block;
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #000;
+  line-height: 1;
+`;
+
+export const Genres = styled.section`
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+`;
+
+export const Infomation = styled.div`
   width: 70%;
 `;
 
-export const ContentThumb = styled.img`
+export const PosterThumb = styled.img`
   max-width: 100%;
   border-radius: inherit;
 `;
 
-export const ContentImage = styled.figure`
+export const Poster = styled.figure`
   flex: 1 1;
   border-radius: 8px;
   font-size: 0;
 `;
 
-export const Content = styled.section`
+export const Detail = styled.section`
   display: flex;
   gap: 50px;
   ${SectionLayout};
+  margin: 35px auto 0;
 `;
 
-export const PosterImage = styled.div`
+export const BackgroundPoster = styled.div`
   position: absolute;
   z-index: -1;
   top: 0;

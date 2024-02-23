@@ -22,13 +22,16 @@ export default function Header() {
   const active = gnbList.findIndex((e) => e.path === pathname);
 
   const stickyHeader = () => {
+    const target = headerRef.current!;
+    const headerHeight = target.clientHeight;
+
     if (
-      document.body.scrollTop > 100 ||
-      document.documentElement.scrollTop > 100
+      document.body.scrollTop > headerHeight ||
+      document.documentElement.scrollTop > headerHeight
     ) {
-      headerRef.current!.classList.add("active");
+      target.classList.add("active");
     } else {
-      headerRef.current!.classList.remove("active");
+      target.classList.remove("active");
     }
   };
 
@@ -43,7 +46,7 @@ export default function Header() {
   return (
     <S.Header ref={headerRef}>
       <S.Logo>
-        <S.LogoLink to="/">Logo</S.LogoLink>
+        <S.LogoLink to="/">LOGO</S.LogoLink>
       </S.Logo>
 
       <S.Gnb>

@@ -15,20 +15,27 @@ const defaultOptions = {
   pagination: false,
   loop: false,
   autoplay: false,
+  lazy: {
+    loadPrevNext: true,
+    loadPrevNextAmount: 2,
+    loadOnTransitionStart: true,
+  },
+  grabCursor: true,
 };
 
 export default function MovieSlider(props: T.IPropsMovieSlider) {
   const { options, children } = props;
+
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
   const sliderOptions = useMemo(
     () => ({
       ...defaultOptions,
       ...options,
     }),
-    [defaultOptions, options]
+    []
   );
-
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
 
   return (
     <S.Container>

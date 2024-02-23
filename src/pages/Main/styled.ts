@@ -31,6 +31,4 @@ export const Visual = styled.section`
   position: relative;
 `;
 
-export const Main = styled.main`
-  margin-top: -80px;
-`;
+export const Main = styled.main``;

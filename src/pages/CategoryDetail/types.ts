@@ -15,7 +15,8 @@ export interface IDetail {
   id: number;
   imdb_id: string;
   original_language: string;
-  original_title: string;
+  original_title?: string;
+  original_name?: string;
   overview: string;
   popularity: number;
   poster_path: string;
@@ -36,7 +37,8 @@ export interface IDetail {
   }[];
   status: string;
   tagline: string;
-  title: string;
+  title?: string;
+  name?: string;
   video: boolean;
   vote_average: number;
   vote_count: number;

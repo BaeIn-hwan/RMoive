@@ -4,6 +4,7 @@ import Main from "@/pages/Main";
 import CategoryList from "@/pages/CategoryList";
 import CategoryDetail from "@/pages/CategoryDetail";
 import DefaultLayout from "@/layouts/Default";
+import ScrollTop from "./ScrollTop";
 
 const moives: RouteObject[] = [
   {
@@ -25,7 +26,11 @@ const routes = (): RouteObject[] => {
   return [
     {
       path: "/",
-      element: <DefaultLayout />,
+      element: (
+        <ScrollTop>
+          <DefaultLayout />
+        </ScrollTop>
+      ),
       children: [...moives],
     },
   ];
