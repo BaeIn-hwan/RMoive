@@ -1,18 +1,40 @@
-import apiRequest from "@/apis";
 import { useEffect, useState } from "react";
 
-import * as S from "./styled";
-import * as T from "./types";
+import apiRequest from "@/apis";
+import useMovies from "@/store/movies";
 
-import VisualMovie from "./VisualMovie";
-import ContentMovie from "./ContentMovie";
+import KeyVisual from "@/pages/Main/KeyVisual";
+import MovieSlider from "@/pages/Main/MovieSlider";
+
+import * as S from "./styled";
 
 export default function Main() {
-  const [visualMovies, setVisualMovies] = useState<T.TPopularMovie[] | []>([]);
-  const [popularMovies, setPopularMovies] = useState<T.TPopularMovie[] | []>(
-    []
-  );
-  const [trendMovies, setTrendMovies] = useState<T.TTrendMovie[] | []>([]);
+  const [playing, setPlaying] = useState();
+  const { popular, setPopular } = useMovies();
+  const [topRate, setTopRate] = useState();
+
+  const getPlayingMovies = async () => {
+    try {
+      const response = await apiRequest(`/movie/now_playing`, {
+        method: "get",
+        params: {
+          page: 1,
+          language: "ko-kr",
+        },
+      });
+
+      if (
+        response &&
+        response.data &&
+        response.data.results &&
+        response.data.results.length
+      ) {
+        setPlaying(response.data.results);
+      }
+    } catch (error) {
+      console.error(`getPlayingMovies Error.. ${error}`);
+    }
+  };
 
   const getPopularMovies = async () => {
     try {
@@ -30,17 +52,16 @@ export default function Main() {
         response.data.results &&
         response.data.results.length
       ) {
-        setVisualMovies(response.data.results.slice(0, 4));
-        setPopularMovies(response.data.results);
+        setPopular(response.data.results);
       }
     } catch (error) {
       console.error(`GetPopularMovies Error.. ${error}`);
     }
   };
 
-  const getTrendingMovies = async () => {
+  const getTopRateMovies = async () => {
     try {
-      const response = await apiRequest(`/trending/movie/day`, {
+      const response = await apiRequest(`/movie/top_rated`, {
         method: "get",
         params: {
           page: 1,
@@ -54,37 +75,40 @@ export default function Main() {
         response.data.results &&
         response.data.results.length
       ) {
-        setTrendMovies(response.data.results.slice(0, 10));
+        setTopRate(response.data.results);
       }
     } catch (error) {
-      console.error(`GetTrendingMovies Error.. ${error}`);
+      console.error(`getTopRateMovies Error.. ${error}`);
     }
   };
 
   useEffect(() => {
+    getPlayingMovies();
     getPopularMovies();
-    getTrendingMovies();
+    getTopRateMovies();
   }, []);
 
   return (
-    <S.Main>
-      <S.Visual>
-        <h2 className="blind">Visual</h2>
-
-        <VisualMovie list={visualMovies} />
-      </S.Visual>
+    <div>
+      <KeyVisual />
 
       <S.Section>
-        <S.SectionTitle>급상승 인기 컨텐츠</S.SectionTitle>
+        <S.Title>Now Playing</S.Title>
 
-        <ContentMovie list={popularMovies} />
+        <MovieSlider movies={playing} />
       </S.Section>
 
       <S.Section>
-        <S.SectionTitle>인기 컨텐츠</S.SectionTitle>
+        <S.Title>Popular</S.Title>
 
-        <ContentMovie list={trendMovies} />
+        <MovieSlider movies={popular} />
       </S.Section>
-    </S.Main>
+
+      <S.Section>
+        <S.Title>Top Rate</S.Title>
+
+        <MovieSlider movies={topRate} />
+      </S.Section>
+    </div>
   );
 }

@@ -1,34 +1,13 @@
 import styled from "styled-components";
 
-export const SectionContent = styled.div``;
-
-export const SectionTitle = styled.h2`
+export const Title = styled.h2`
   margin-bottom: 24px;
+  padding: 0 40px;
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
 `;
 
 export const Section = styled.section`
-  margin-top: 70px;
-  padding: 0 50px;
-
-  > div {
-    position: relative;
-    margin: 0 -50px;
-
-    .swiper {
-      padding: 0 50px;
-    }
-  }
+  margin-top: 100px;
 `;
-
-export const Content = styled.div`
-  padding: 0 50px;
-`;
-
-export const Visual = styled.section`
-  position: relative;
-`;
-
-export const Main = styled.main``;

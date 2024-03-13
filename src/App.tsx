@@ -4,7 +4,9 @@ import Routes from "@/routes";
 import { ThemeProvider } from "styled-components";
 import { themes } from "@/styles/modules/colors";
 import { GlobalStyle } from "@/styles";
-import "swiper/swiper-bundle.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const router = createBrowserRouter(Routes());
 

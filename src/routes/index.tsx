@@ -1,10 +1,12 @@
 import { RouteObject } from "react-router-dom";
 
-import Main from "@/pages/Main";
-import CategoryList from "@/pages/CategoryList";
-import CategoryDetail from "@/pages/CategoryDetail";
 import DefaultLayout from "@/layouts/Default";
+
+import Main from "@/pages/Main";
+// import CategoryList from "@/pages/CategoryList";
+import MovieDetail from "@/pages/MovieDetail";
 import ScrollTop from "./ScrollTop";
+// import Test from "@/pages/Test";
 
 const moives: RouteObject[] = [
   {
@@ -12,13 +14,13 @@ const moives: RouteObject[] = [
     element: <Main />,
     index: true,
   },
-  {
-    path: "/:type",
-    element: <CategoryList />,
-  },
+  // {
+  //   path: "/:type",
+  //   element: <CategoryList />,
+  // },
   {
     path: "/:type/:id",
-    element: <CategoryDetail />,
+    element: <MovieDetail />,
   },
 ];
 
@@ -33,6 +35,10 @@ const routes = (): RouteObject[] => {
       ),
       children: [...moives],
     },
+    // {
+    //   path: "/test",
+    //   element: <Test />,
+    // },
   ];
 };
 
