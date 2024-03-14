@@ -89,7 +89,7 @@ export default function Main() {
   }, []);
 
   return (
-    <div>
+    <S.Container>
       <KeyVisual />
 
       <S.Section>
@@ -109,6 +109,6 @@ export default function Main() {
 
         <MovieSlider movies={topRate} />
       </S.Section>
-    </div>
+    </S.Container>
   );
 }

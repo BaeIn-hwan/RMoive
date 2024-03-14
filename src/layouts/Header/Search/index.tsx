@@ -3,7 +3,10 @@ import * as S from "./styled";
 
 export default function Search() {
   const [open, setOpen] = useState(false);
+
   const [word, setWord] = useState("");
+  const [searchFocus, setSearchFocus] = useState(false);
+
   const [recent, setRecent] = useState<string[] | []>([]);
 
   const onSearchOpen = () => {
@@ -11,13 +14,12 @@ export default function Search() {
   };
 
   const onSearchClose = () => {
-    console.log("close");
-
     if (!open) return;
 
     if (word && word.length) setWord("");
 
     setOpen(false);
+    setSearchFocus(false);
   };
 
   const onSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -60,18 +62,21 @@ export default function Search() {
           value={word}
           onChange={(e) => setWord(e.target.value)}
           onKeyUp={onSubmit}
+          onFocus={() => setSearchFocus(true)}
         />
       </S.SearchContainer>
 
-      <S.Recent>
-        <S.RecentList>
-          {recent.map((item, i) => (
-            <S.RecentItem key={i}>
-              {i !== 9 ? `0${i + 1}` : i + 1}. {item}
-            </S.RecentItem>
-          ))}
-        </S.RecentList>
-      </S.Recent>
+      {searchFocus && (
+        <S.Recent>
+          <S.RecentList>
+            {recent.map((item, i) => (
+              <S.RecentItem key={i}>
+                {i !== 9 ? `0${i + 1}` : i + 1}. {item}
+              </S.RecentItem>
+            ))}
+          </S.RecentList>
+        </S.Recent>
+      )}
     </S.Search>
   );
 }

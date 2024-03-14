@@ -1,6 +1,11 @@
-import apiRequest from "@/apis";
 import { useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom";
+
+import apiRequest from "@/apis";
+
+import * as S from "./styled";
+import LazyImage from "@/components/LazyImage";
 
 export default function MovieDetail() {
   const { type, id } = useParams<{
@@ -55,5 +60,30 @@ export default function MovieDetail() {
     getCast();
   }, [type, id]);
 
-  return <div>MovieDetail</div>;
+  if (!detail) return;
+
+  return (
+    <S.Container>
+      <S.Poster
+        style={{
+          backgroundImage: `url(${import.meta.env.VITE_IMAGE_URL}original${
+            detail.backdrop_path
+          })`,
+        }}
+      ></S.Poster>
+
+      <S.Details>
+        <S.Image>
+          <LazyImage
+            src={`${import.meta.env.VITE_IMAGE_URL}w300${detail.poster_path}`}
+            alt=""
+          />
+        </S.Image>
+
+        <S.Info>
+          <S.Title>{detail.title}</S.Title>
+        </S.Info>
+      </S.Details>
+    </S.Container>
+  );
 }

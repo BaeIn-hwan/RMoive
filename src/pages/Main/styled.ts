@@ -11,3 +11,7 @@ export const Title = styled.h2`
 export const Section = styled.section`
   margin-top: 100px;
 `;
+
+export const Container = styled.div`
+  padding-top: 80px;
+`;

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const ItemButtonStyle = css`
   display: flex;
@@ -115,10 +116,116 @@ export const ItemContainer = styled.div`
   background-size: cover;
 `;
 
+/* 여기만 */
+export const SliderPagination = styled.div`
+  position: absolute;
+  z-index: 1;
+  font-size: 0;
+`;
+
+export const SliderNavi = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+  fill: #fff;
+`;
+
+export const SliderNext = styled(SliderNavi)`
+  right: 0;
+`;
+
+export const SliderPrev = styled(SliderNavi)`
+  left: 0;
+`;
+
+export const OriginTitle = styled.strong`
+  font-size: 18px;
+`;
+
+export const Title = styled.h2`
+  font-size: 32px;
+`;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  z-index: 1;
+  left: 30px;
+  bottom: 20px;
+  color: #fff;
+`;
+
+export const Poster = styled.figure`
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 10%);
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+`;
+
+export const SliderItem = styled(SwiperSlide)`
+  position: relative;
+  max-width: 1280px;
+`;
+
+export const Slider = styled(Swiper)`
+  padding: 0 50px;
+`;
+
 export const Container = styled.section`
   position: relative;
 
-  .swiper-slide-active {
+  .swiper-pagination {
+    display: flex;
+    justify-content: flex-end;
+    right: 70px;
+    bottom: 20px;
+    left: auto;
+    font-size: 0;
+
+    &-bullet {
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+    }
+  }
+
+  .swiper-button-disabled {
+    display: none;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    color: #fff;
+  }
+  /* .swiper-slide-active {
     ${ItemImage} {
       opacity: 1;
       transform: scale(1);
@@ -138,5 +245,5 @@ export const Container = styled.section`
       opacity: 1;
       transform: translate3d(0, 0, 0);
     }
-  }
+  } */
 `;

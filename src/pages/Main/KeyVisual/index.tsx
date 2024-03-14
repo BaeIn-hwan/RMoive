@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import SwiperCore from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 
 import useMovies from "@/store/movies";
 
 import * as S from "./styled";
-
-import LazyImage from "@/components/LazyImage";
 
 interface IPropsItem {
   adult: boolean;
@@ -28,41 +25,7 @@ interface IPropsItem {
   name?: string;
 }
 
-SwiperCore.use([Navigation]);
-
-function KeyVisualItem(props: { item: IPropsItem }) {
-  const { item } = props;
-
-  const onPreview = () => {};
-
-  return (
-    <S.ItemContainer
-      style={{
-        backgroundImage: `url(${import.meta.env.VITE_IMAGE_URL}/original${
-          item.backdrop_path
-        })`,
-      }}
-    >
-      <S.ItemBox>
-        <S.ItemImage>
-          <LazyImage
-            src={`${import.meta.env.VITE_IMAGE_URL}w300${item.poster_path}`}
-            alt=""
-          />
-        </S.ItemImage>
-
-        <S.ItemInfo>
-          <S.ItemTitle>{item.title}</S.ItemTitle>
-          {item.overview && <S.ItemOverview>{item.overview}</S.ItemOverview>}
-          <S.ItemCtrl>
-            <S.ItemMoreView to={`/movie/${item.id}`}>MORE VIEW</S.ItemMoreView>
-            <S.ItemPreview onClick={onPreview}>PREVIEW</S.ItemPreview>
-          </S.ItemCtrl>
-        </S.ItemInfo>
-      </S.ItemBox>
-    </S.ItemContainer>
-  );
-}
+SwiperCore.use([Navigation, Pagination]);
 
 export default function KeyVisual() {
   const [movies, setMovies] = useState([]);
@@ -76,19 +39,39 @@ export default function KeyVisual() {
 
   return (
     <S.Container>
-      <Swiper
+      <S.Slider
         a11y={{
           enabled: true,
         }}
+        centeredSlides={true}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        spaceBetween={25}
       >
         {movies.map((item: IPropsItem, i) => {
           return (
-            <SwiperSlide key={i}>
-              <KeyVisualItem item={item} />
-            </SwiperSlide>
+            <S.SliderItem key={i}>
+              <S.Poster>
+                <img
+                  src={`${import.meta.env.VITE_IMAGE_URL}original${
+                    item.backdrop_path
+                  }`}
+                  alt=""
+                />
+              </S.Poster>
+
+              <S.Info>
+                <S.Title>{item.title}</S.Title>
+                {item.original_title && (
+                  <S.OriginTitle>{item.original_title}</S.OriginTitle>
+                )}
+              </S.Info>
+            </S.SliderItem>
           );
         })}
-      </Swiper>
+      </S.Slider>
     </S.Container>
   );
 }
