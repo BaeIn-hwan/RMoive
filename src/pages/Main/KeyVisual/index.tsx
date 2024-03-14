@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-
 import SwiperCore from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
-
-import useMovies from "@/store/movies";
 
 import * as S from "./styled";
 
@@ -27,14 +23,7 @@ interface IPropsItem {
 
 SwiperCore.use([Navigation, Pagination]);
 
-export default function KeyVisual() {
-  const [movies, setMovies] = useState([]);
-  const { popular } = useMovies();
-
-  useEffect(() => {
-    setMovies(popular.slice(0, 4));
-  }, [popular]);
-
+export default function KeyVisual({ movies }: { movies: IPropsItem[] }) {
   if (!(movies && movies.length)) return;
 
   return (
@@ -50,7 +39,7 @@ export default function KeyVisual() {
         }}
         spaceBetween={25}
       >
-        {movies.map((item: IPropsItem, i) => {
+        {movies.map((item: IPropsItem, i: number) => {
           return (
             <S.SliderItem key={i}>
               <S.Poster>

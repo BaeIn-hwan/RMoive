@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const RecentEmpty = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  font-size: 14px;
+  text-align: center;
+`;
+
 export const RecentItem = styled.li`
   &:not(:first-child) {
     margin-top: 6px;

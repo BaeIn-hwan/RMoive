@@ -69,11 +69,17 @@ export default function Search() {
       {searchFocus && (
         <S.Recent>
           <S.RecentList>
-            {recent.map((item, i) => (
-              <S.RecentItem key={i}>
-                {i !== 9 ? `0${i + 1}` : i + 1}. {item}
+            {recent && recent.length ? (
+              recent.map((item, i) => (
+                <S.RecentItem key={i}>
+                  {i !== 9 ? `0${i + 1}` : i + 1}. {item}
+                </S.RecentItem>
+              ))
+            ) : (
+              <S.RecentItem>
+                <S.RecentEmpty>검색어가 없습니다.</S.RecentEmpty>
               </S.RecentItem>
-            ))}
+            )}
           </S.RecentList>
         </S.Recent>
       )}

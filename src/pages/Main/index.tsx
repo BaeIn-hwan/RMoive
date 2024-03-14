@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import apiRequest from "@/apis";
-import useMovies from "@/store/movies";
+// import useMovies from "@/store/movies";
 
 import KeyVisual from "@/pages/Main/KeyVisual";
 import MovieSlider from "@/pages/Main/MovieSlider";
@@ -9,9 +9,10 @@ import MovieSlider from "@/pages/Main/MovieSlider";
 import * as S from "./styled";
 
 export default function Main() {
-  const [playing, setPlaying] = useState();
-  const { popular, setPopular } = useMovies();
-  const [topRate, setTopRate] = useState();
+  // const { popular, setPopular } = useMovies();
+  const [playing, setPlaying] = useState([]);
+  const [popular, setPopular] = useState([]);
+  const [topRate, setTopRate] = useState([]);
 
   const getPlayingMovies = async () => {
     try {
@@ -90,13 +91,13 @@ export default function Main() {
 
   return (
     <S.Container>
-      <KeyVisual />
+      <KeyVisual movies={popular.slice(0, 4)} />
 
-      <S.Section>
+      {/* <S.Section>
         <S.Title>Now Playing</S.Title>
 
         <MovieSlider movies={playing} />
-      </S.Section>
+      </S.Section> */}
 
       <S.Section>
         <S.Title>Popular</S.Title>
@@ -104,11 +105,11 @@ export default function Main() {
         <MovieSlider movies={popular} />
       </S.Section>
 
-      <S.Section>
+      {/* <S.Section>
         <S.Title>Top Rate</S.Title>
 
         <MovieSlider movies={topRate} />
-      </S.Section>
+      </S.Section> */}
     </S.Container>
   );
 }

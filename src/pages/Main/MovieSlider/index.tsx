@@ -7,8 +7,6 @@ import * as S from "./styled";
 export default function MovieSlider(props: any) {
   const { movies } = props;
 
-  console.log(movies);
-
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
 

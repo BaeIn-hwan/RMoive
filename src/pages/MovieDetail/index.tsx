@@ -81,9 +81,39 @@ export default function MovieDetail() {
         </S.Image>
 
         <S.Info>
-          <S.Title>{detail.title}</S.Title>
+          <S.Genres>
+            {detail.genres.map((item) => {
+              return <S.GenresItem key={item.id}>{item.name}</S.GenresItem>;
+            })}
+          </S.Genres>
+
+          <S.Title>{detail.title || detail.original_title}</S.Title>
+
+          <S.ReleaseDate>
+            <S.ReleaseDateTitle>개봉일</S.ReleaseDateTitle>
+            <div>{detail.release_date}</div>
+          </S.ReleaseDate>
+
+          <S.Cast>
+            <S.CastTitle>출연진</S.CastTitle>
+            <div>
+              {casts.slice(0, 5).map((cast, i) => {
+                return (
+                  <S.CastLink key={cast.id} to="#">
+                    {cast.name}
+                    {i !== 4 && ", "}
+                  </S.CastLink>
+                );
+              })}
+            </div>
+          </S.Cast>
         </S.Info>
       </S.Details>
+
+      <S.Contents>
+        {detail.overview && <S.OverView>{detail.overview}</S.OverView>}
+        {detail.tagline && <S.TagLine>{detail.tagline}</S.TagLine>}
+      </S.Contents>
     </S.Container>
   );
 }
