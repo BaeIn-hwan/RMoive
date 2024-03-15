@@ -23,6 +23,6 @@ export const CarouselSlide = styled(SwiperSlide)`
   width: 200px;
 `;
 
-export const Carousel = styled(Swiper)`
-  padding: 0 40px;
+export const Carousel = styled(Swiper)<{ $isFull: boolean }>`
+  ${(props) => (props.$isFull ? `padding: 0 40px;` : "")}
 `;

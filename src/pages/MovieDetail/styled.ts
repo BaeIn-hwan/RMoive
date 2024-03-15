@@ -1,68 +1,158 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-const InfoTitle = styled.strong`
+export const showAnimation = css`
+  visibility: visible;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+`;
+
+export const RecommendContent = styled.div`
+  margin-top: 20px;
+`;
+
+export const RecommendTitle = styled.h3`
+  font-size: 32px;
+  color: #fff;
+`;
+
+export const Recommend = styled.section`
+  max-width: 1280px;
+  margin: 100px auto 0;
+  padding: 0 40px;
+`;
+
+export const OverView = styled.p<{ $show: boolean }>`
+  margin-top: 30px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 26px;
+  word-wrap: break-word;
+  word-break: keep-all;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate3d(0, -30px, 0);
+  transition: all.35s linear 0.25s;
+  ${(props) => props.$show && `${showAnimation}`};
+`;
+
+export const TagLine = styled.strong<{ $show: boolean }>`
   display: block;
-  margin-bottom: 4px;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate3d(0, -30px, 0);
+  transition: all.35s linear;
+  ${(props) => props.$show && `${showAnimation}`};
+`;
+
+export const Story = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+`;
+
+export const Contents = styled.div`
+  margin-top: 75px;
+  height: 2000px;
+`;
+
+export const CastLink = styled(Link)`
   font-size: 18px;
   font-weight: 500;
   color: #fff;
 `;
 
-export const OverView = styled.p`
-  margin-top: 24px;
-  font-size: 14px;
-  line-height: 26px;
+export const CastContent = styled.div`
   word-wrap: break-word;
   word-break: keep-all;
 `;
 
-export const TagLine = styled.span`
-  display: block;
-  margin-top: 10px;
-  font-size: 20px;
+export const CastTitle = styled.div`
+  flex: 0 0 auto;
+  font-size: 18px;
+  color: #ccc;
 `;
-
-export const Contents = styled.div`
-  margin-top: 100px;
-`;
-
-export const CastLink = styled(Link)`
-  font-size: 16px;
-  font-weight: 500;
-  color: #fff;
-`;
-
-export const CastTitle = styled(InfoTitle)``;
 
 export const Cast = styled.div`
-  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
 `;
 
-export const ReleaseDateTitle = styled(InfoTitle)``;
-
-export const ReleaseDate = styled.span`
-  display: block;
-  margin-top: 25px;
-  font-size: 16px;
+export const SummaryContent = styled.div`
+  font-size: 18px;
   font-weight: 500;
-  color: #fff;
+
+  span {
+    font-size: 18px;
+    font-weight: 800;
+  }
 `;
 
-export const Title = styled.h2`
-  margin-top: 35px;
-  font-size: 42px;
-  line-height: 54px;
+export const SummaryTitle = styled.div`
+  font-size: 18px;
+  color: #ccc;
+`;
+
+export const SummaryItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+
+  &:not(:first-child) {
+    margin-left: 20px;
+    padding-left: 22px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 2px;
+      height: 20px;
+      background-color: #fff;
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+`;
+
+export const SummaryList = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+export const Summary = styled.div`
+  margin-top: 25px;
+`;
+
+export const OriginTitle = styled.em`
+  display: block;
+  font-size: 26px;
   word-break: keep-all;
   word-wrap: break-word;
+`;
+
+export const DefaultTitle = styled.h2`
+  font-size: 42px;
+  word-break: keep-all;
+  word-wrap: break-word;
+`;
+
+export const Title = styled.div`
+  margin-top: 35px;
 `;
 
 export const GenresItem = styled.li`
-  padding: 4px 10px;
+  padding: 5px 10px;
   border: 1px solid #fff;
   border-radius: 12px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1;
 `;
 
@@ -71,7 +161,7 @@ export const Genres = styled.ul`
   gap: 8px;
 `;
 
-export const Info = styled.div`
+export const Details = styled.div`
   flex: 1;
   color: #fff;
 `;
@@ -88,27 +178,37 @@ export const Image = styled.figure`
   }
 `;
 
-export const Details = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   gap: 50px;
+  position: relative;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
 `;
 
-export const Poster = styled.div`
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50vh;
+export const MovieCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 30%);
+  }
 `;
 
 export const Container = styled.div`
   position: relative;
-  padding-top: 80px;
 `;

@@ -19,7 +19,7 @@ const moives: RouteObject[] = [
   //   element: <CategoryList />,
   // },
   {
-    path: "/:type/:id",
+    path: "/:type/detail/:id",
     element: <MovieDetail />,
   },
 ];

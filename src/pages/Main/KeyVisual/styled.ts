@@ -192,7 +192,7 @@ export const Poster = styled.figure`
 
 export const SliderItem = styled(SwiperSlide)`
   position: relative;
-  max-width: 1280px;
+  /* max-width: 1280px; */
 `;
 
 export const Slider = styled(Swiper)`

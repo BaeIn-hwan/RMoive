@@ -11,6 +11,7 @@ SwiperCore.use([A11y, Autoplay, Navigation, Pagination]);
 export default function MovieCarousel(props: T.IPropsVisualSlider) {
   const {
     list,
+    isFull = true,
     autoplay = false,
     navigation = true,
     spaceBetween = 0,
@@ -31,11 +32,12 @@ export default function MovieCarousel(props: T.IPropsVisualSlider) {
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         pagination={pagination}
+        $isFull={isFull}
       >
         {list.map((item, i) => {
           return (
             <S.CarouselSlide key={i}>
-              <S.CarouselLink to={`/movie/${item.id}`}>
+              <S.CarouselLink to={`/movie/detail/${item.id}`}>
                 <S.CarouselImage>
                   <LazyImage
                     src={`${import.meta.env.VITE_IMAGE_URL}w200${

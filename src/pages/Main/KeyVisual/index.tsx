@@ -2,6 +2,7 @@ import SwiperCore from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 
 import * as S from "./styled";
+import { Link } from "react-router-dom";
 
 interface IPropsItem {
   adult: boolean;
@@ -42,21 +43,23 @@ export default function KeyVisual({ movies }: { movies: IPropsItem[] }) {
         {movies.map((item: IPropsItem, i: number) => {
           return (
             <S.SliderItem key={i}>
-              <S.Poster>
-                <img
-                  src={`${import.meta.env.VITE_IMAGE_URL}original${
-                    item.backdrop_path
-                  }`}
-                  alt=""
-                />
-              </S.Poster>
+              <Link to={`/movie/detail/${item.id}`}>
+                <S.Poster>
+                  <img
+                    src={`${import.meta.env.VITE_IMAGE_URL}original${
+                      item.backdrop_path
+                    }`}
+                    alt=""
+                  />
+                </S.Poster>
 
-              <S.Info>
-                <S.Title>{item.title}</S.Title>
-                {item.original_title && (
-                  <S.OriginTitle>{item.original_title}</S.OriginTitle>
-                )}
-              </S.Info>
+                <S.Info>
+                  <S.Title>{item.title}</S.Title>
+                  {item.original_title && (
+                    <S.OriginTitle>{item.original_title}</S.OriginTitle>
+                  )}
+                </S.Info>
+              </Link>
             </S.SliderItem>
           );
         })}

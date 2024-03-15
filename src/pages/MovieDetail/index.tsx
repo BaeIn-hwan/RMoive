@@ -6,6 +6,13 @@ import apiRequest from "@/apis";
 
 import * as S from "./styled";
 import LazyImage from "@/components/LazyImage";
+import MovieCarousel from "@/components/MovieCarousel";
+import useIo from "@/hooks/useIo";
+
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+// import { Doughnut } from "react-chartjs-2";
+
+// ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function MovieDetail() {
   const { type, id } = useParams<{
@@ -15,13 +22,22 @@ export default function MovieDetail() {
 
   const [detail, setDetail] = useState(null);
   const [casts, setCasts] = useState([]);
+  const [recommend, setRecommend] = useState([]);
+
+  const [tagLineRef, tagLineShow] = useIo({
+    threshold: 1,
+  });
+
+  const [overViewRef, overViewShow] = useIo({
+    threshold: 1,
+  });
 
   const getDetail = async () => {
     try {
       const response = await apiRequest(`/${type}/${id}`, {
         method: "get",
         params: {
-          language: "ko-kr",
+          language: "ko-KR",
         },
       });
 
@@ -38,7 +54,7 @@ export default function MovieDetail() {
       const response = await apiRequest(`/${type}/${id}/credits`, {
         method: "get",
         params: {
-          language: "ko-kr",
+          language: "ko-KR",
         },
       });
 
@@ -55,65 +71,139 @@ export default function MovieDetail() {
     }
   };
 
+  const getRecommend = async () => {
+    try {
+      const response = await apiRequest(`/${type}/${id}/recommendations`, {
+        method: "get",
+        params: {
+          language: "ko-KR",
+          page: 1,
+        },
+      });
+
+      if (
+        response &&
+        response.data &&
+        response.data.results &&
+        response.data.results.length
+      ) {
+        setRecommend(response.data.results);
+      }
+    } catch (error) {
+      console.error(`GetRecommend Error.. ${error}`);
+    }
+  };
+
   useEffect(() => {
     getDetail();
     getCast();
-  }, [type, id]);
+    getRecommend();
+  }, []);
 
   if (!detail) return;
 
   return (
     <S.Container>
-      <S.Poster
+      <S.MovieCard
         style={{
           backgroundImage: `url(${import.meta.env.VITE_IMAGE_URL}original${
             detail.backdrop_path
           })`,
         }}
-      ></S.Poster>
+      >
+        <S.Wrapper>
+          <S.Image>
+            <LazyImage
+              src={`${import.meta.env.VITE_IMAGE_URL}w300${detail.poster_path}`}
+              alt=""
+            />
+          </S.Image>
 
-      <S.Details>
-        <S.Image>
-          <LazyImage
-            src={`${import.meta.env.VITE_IMAGE_URL}w300${detail.poster_path}`}
-            alt=""
-          />
-        </S.Image>
-
-        <S.Info>
-          <S.Genres>
-            {detail.genres.map((item) => {
-              return <S.GenresItem key={item.id}>{item.name}</S.GenresItem>;
-            })}
-          </S.Genres>
-
-          <S.Title>{detail.title || detail.original_title}</S.Title>
-
-          <S.ReleaseDate>
-            <S.ReleaseDateTitle>개봉일</S.ReleaseDateTitle>
-            <div>{detail.release_date}</div>
-          </S.ReleaseDate>
-
-          <S.Cast>
-            <S.CastTitle>출연진</S.CastTitle>
-            <div>
-              {casts.slice(0, 5).map((cast, i) => {
-                return (
-                  <S.CastLink key={cast.id} to="#">
-                    {cast.name}
-                    {i !== 4 && ", "}
-                  </S.CastLink>
-                );
+          <S.Details>
+            <S.Genres>
+              {detail.genres.map((item) => {
+                return <S.GenresItem key={item.id}>{item.name}</S.GenresItem>;
               })}
-            </div>
-          </S.Cast>
-        </S.Info>
-      </S.Details>
+            </S.Genres>
+
+            <S.Title>
+              <S.DefaultTitle>{detail.title}</S.DefaultTitle>
+              {detail.original_title && (
+                <S.OriginTitle>{detail.original_title}</S.OriginTitle>
+              )}
+            </S.Title>
+
+            <S.Summary>
+              <S.SummaryList>
+                <S.SummaryItem>
+                  <S.SummaryTitle>개봉</S.SummaryTitle>
+                  <S.SummaryContent>{detail.release_date}</S.SummaryContent>
+                </S.SummaryItem>
+
+                <S.SummaryItem>
+                  <S.SummaryTitle>상영시간</S.SummaryTitle>
+                  <S.SummaryContent>
+                    <span>{detail.runtime}</span>분
+                  </S.SummaryContent>
+                </S.SummaryItem>
+
+                <S.SummaryItem>
+                  <S.SummaryTitle>평점</S.SummaryTitle>
+                  <S.SummaryContent>
+                    <span style={{ color: "#febe98" }}>
+                      {detail.vote_average.toFixed(1)}
+                    </span>{" "}
+                    / 10.0
+                  </S.SummaryContent>
+                </S.SummaryItem>
+              </S.SummaryList>
+            </S.Summary>
+
+            <S.Cast>
+              <S.CastTitle>출연</S.CastTitle>
+              <S.CastContent>
+                {casts.slice(0, 5).map((cast, i) => {
+                  return (
+                    <S.CastLink key={cast.id} to="#">
+                      {cast.name}
+                      {i !== 4 && ","}{" "}
+                    </S.CastLink>
+                  );
+                })}
+              </S.CastContent>
+            </S.Cast>
+          </S.Details>
+        </S.Wrapper>
+      </S.MovieCard>
 
       <S.Contents>
-        {detail.overview && <S.OverView>{detail.overview}</S.OverView>}
-        {detail.tagline && <S.TagLine>{detail.tagline}</S.TagLine>}
+        <S.Story>
+          {detail.tagline && (
+            <S.TagLine ref={tagLineRef} $show={tagLineShow}>
+              {detail.tagline}
+            </S.TagLine>
+          )}
+          {detail.overview && (
+            <S.OverView ref={overViewRef} $show={overViewShow}>
+              {detail.overview}
+            </S.OverView>
+          )}
+        </S.Story>
       </S.Contents>
+
+      {recommend && recommend.length ? (
+        <S.Recommend>
+          <S.RecommendTitle>Recommend Movie</S.RecommendTitle>
+          <div>
+            <MovieCarousel
+              list={recommend}
+              isFull={false}
+              spaceBetween={20}
+              navigation={false}
+            />
+          </div>
+        </S.Recommend>
+      ) : null}
     </S.Container>
   );
 }

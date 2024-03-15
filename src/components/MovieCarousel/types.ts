@@ -6,6 +6,7 @@ import type {
 
 export interface IPropsVisualSlider {
   list: any[] | [];
+  isFull?: boolean;
   autoplay?: boolean | AutoplayOptions | undefined;
   navigation?: boolean | NavigationOptions | undefined;
   spaceBetween?: string | number | undefined;
