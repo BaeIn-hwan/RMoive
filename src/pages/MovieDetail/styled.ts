@@ -12,14 +12,15 @@ export const RecommendContent = styled.div`
 `;
 
 export const RecommendTitle = styled.h3`
+  max-width: 1280px;
+  margin: 0 auto 30px;
+  padding: 0 40px;
   font-size: 32px;
   color: #fff;
 `;
 
 export const Recommend = styled.section`
-  max-width: 1280px;
-  margin: 100px auto 0;
-  padding: 0 40px;
+  margin-top: 100px;
 `;
 
 export const OverView = styled.p<{ $show: boolean }>`
@@ -56,7 +57,7 @@ export const Story = styled.div`
 
 export const Contents = styled.div`
   margin-top: 75px;
-  height: 2000px;
+  /* height: 2000px; */
 `;
 
 export const CastLink = styled(Link)`
@@ -86,6 +87,7 @@ export const Cast = styled.div`
 export const SummaryContent = styled.div`
   font-size: 18px;
   font-weight: 500;
+  color: #fff;
 
   span {
     font-size: 18px;
@@ -145,6 +147,7 @@ export const DefaultTitle = styled.h2`
 
 export const Title = styled.div`
   margin-top: 35px;
+  color: #fff;
 `;
 
 export const GenresItem = styled.li`
@@ -153,6 +156,7 @@ export const GenresItem = styled.li`
   border-radius: 12px;
   font-size: 12px;
   font-weight: 700;
+  color: #fff;
   line-height: 1;
 `;
 
@@ -163,7 +167,7 @@ export const Genres = styled.ul`
 
 export const Details = styled.div`
   flex: 1;
-  color: #fff;
+  padding-top: 30px;
 `;
 
 export const Image = styled.figure`

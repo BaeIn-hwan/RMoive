@@ -15,7 +15,6 @@ export default function useIo<T extends HTMLElement>(
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry.isIntersecting);
         setShow(entry.isIntersecting);
       });
     }, options);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { useParams } from "react-router-dom";
 
@@ -20,16 +20,12 @@ export default function MovieDetail() {
     id: string | undefined;
   }>();
 
-  const [detail, setDetail] = useState(null);
-  const [casts, setCasts] = useState([]);
-  const [recommend, setRecommend] = useState([]);
-
-  const [tagLineRef, tagLineShow] = useIo({
-    threshold: 1,
+  const [tagLineRef, tagLineShow] = useIo<HTMLDivElement>({
+    threshold: 0.25,
   });
 
-  const [overViewRef, overViewShow] = useIo({
-    threshold: 1,
+  const [overViewRef, overViewShow] = useIo<HTMLDivElement>({
+    threshold: 0.25,
   });
 
   const getDetail = async () => {
@@ -41,11 +37,10 @@ export default function MovieDetail() {
         },
       });
 
-      if (response && response.data) {
-        setDetail(response.data);
-      }
+      return response.data;
     } catch (error) {
       console.error(`GetDetail Error.. ${error}`);
+      return error;
     }
   };
 
@@ -58,16 +53,10 @@ export default function MovieDetail() {
         },
       });
 
-      if (
-        response &&
-        response.data &&
-        response.data.cast &&
-        response.data.cast.length
-      ) {
-        setCasts(response.data.cast.splice(0, 6));
-      }
+      return response.data.cast.splice(0, 5);
     } catch (error) {
       console.error(`GetCast Error.. ${error}`);
+      return error;
     }
   };
 
@@ -81,26 +70,29 @@ export default function MovieDetail() {
         },
       });
 
-      if (
-        response &&
-        response.data &&
-        response.data.results &&
-        response.data.results.length
-      ) {
-        setRecommend(response.data.results);
-      }
+      return response.data.results;
     } catch (error) {
       console.error(`GetRecommend Error.. ${error}`);
+      return error;
     }
   };
 
-  useEffect(() => {
-    getDetail();
-    getCast();
-    getRecommend();
-  }, []);
+  const { isLoading: load01, data: detail } = useQuery({
+    queryKey: ["detail"],
+    queryFn: getDetail,
+  });
 
-  if (!detail) return;
+  const { isLoading: load02, data: casts } = useQuery({
+    queryKey: ["casts"],
+    queryFn: getCast,
+  });
+
+  const { isLoading: load03, data: recommends } = useQuery({
+    queryKey: ["recommends"],
+    queryFn: getRecommend,
+  });
+
+  if (load01 && load02 && load03) return <div>Loading...</div>;
 
   return (
     <S.Container>
@@ -162,7 +154,7 @@ export default function MovieDetail() {
             <S.Cast>
               <S.CastTitle>출연</S.CastTitle>
               <S.CastContent>
-                {casts.slice(0, 5).map((cast, i) => {
+                {casts.map((cast, i) => {
                   return (
                     <S.CastLink key={cast.id} to="#">
                       {cast.name}
@@ -179,29 +171,28 @@ export default function MovieDetail() {
       <S.Contents>
         <S.Story>
           {detail.tagline && (
-            <S.TagLine ref={tagLineRef} $show={tagLineShow}>
-              {detail.tagline}
-            </S.TagLine>
+            <div ref={tagLineRef}>
+              <S.TagLine $show={tagLineShow}>{detail.tagline}</S.TagLine>
+            </div>
           )}
+
           {detail.overview && (
-            <S.OverView ref={overViewRef} $show={overViewShow}>
-              {detail.overview}
-            </S.OverView>
+            <div ref={overViewRef}>
+              <S.OverView $show={overViewShow}>{detail.overview}</S.OverView>
+            </div>
           )}
         </S.Story>
       </S.Contents>
 
-      {recommend && recommend.length ? (
+      {recommends && recommends.length ? (
         <S.Recommend>
           <S.RecommendTitle>Recommend Movie</S.RecommendTitle>
-          <div>
-            <MovieCarousel
-              list={recommend}
-              isFull={false}
-              spaceBetween={20}
-              navigation={false}
-            />
-          </div>
+
+          <MovieCarousel
+            list={recommends}
+            spaceBetween={20}
+            navigation={false}
+          />
         </S.Recommend>
       ) : null}
     </S.Container>
