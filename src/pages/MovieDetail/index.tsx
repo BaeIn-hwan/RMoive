@@ -5,14 +5,12 @@ import { useParams } from "react-router-dom";
 import apiRequest from "@/apis";
 
 import * as S from "./styled";
+
 import LazyImage from "@/components/LazyImage";
 import MovieCarousel from "@/components/MovieCarousel";
+import VideoSection from "@/pages/MovieDetail/VideoSection";
+
 import useIo from "@/hooks/useIo";
-
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-// import { Doughnut } from "react-chartjs-2";
-
-// ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function MovieDetail() {
   const { type, id } = useParams<{
@@ -77,6 +75,22 @@ export default function MovieDetail() {
     }
   };
 
+  const getVideos = async () => {
+    try {
+      const response = await apiRequest(`/${type}/${id}/videos`, {
+        method: "get",
+        params: {
+          language: "ko-KR",
+        },
+      });
+
+      return response.data.results;
+    } catch (error) {
+      console.error(`GetVideos Error.. ${error}`);
+      return error;
+    }
+  };
+
   const { isLoading: load01, data: detail } = useQuery({
     queryKey: ["detail"],
     queryFn: getDetail,
@@ -92,7 +106,12 @@ export default function MovieDetail() {
     queryFn: getRecommend,
   });
 
-  if (load01 && load02 && load03) return <div>Loading...</div>;
+  const { isLoading: load04, data: videos } = useQuery({
+    queryKey: ["videos"],
+    queryFn: getVideos,
+  });
+
+  if (load01 && load02 && load03 && load04) return <div>Loading...</div>;
 
   return (
     <S.Container>
@@ -153,16 +172,18 @@ export default function MovieDetail() {
 
             <S.Cast>
               <S.CastTitle>출연</S.CastTitle>
-              <S.CastContent>
-                {casts.map((cast, i) => {
-                  return (
-                    <S.CastLink key={cast.id} to="#">
-                      {cast.name}
-                      {i !== 4 && ","}{" "}
-                    </S.CastLink>
-                  );
-                })}
-              </S.CastContent>
+              {casts && casts.length && (
+                <S.CastContent>
+                  {casts.map((cast, i) => {
+                    return (
+                      <S.CastLink key={cast.id} to="#">
+                        {cast.name}
+                        {i !== 4 && ","}{" "}
+                      </S.CastLink>
+                    );
+                  })}
+                </S.CastContent>
+              )}
             </S.Cast>
           </S.Details>
         </S.Wrapper>
@@ -184,9 +205,14 @@ export default function MovieDetail() {
         </S.Story>
       </S.Contents>
 
+      <S.Video style={{ marginTop: "100px" }}>
+        <S.VideoTitle>VIDEO</S.VideoTitle>
+        <VideoSection list={videos} />
+      </S.Video>
+
       {recommends && recommends.length ? (
         <S.Recommend>
-          <S.RecommendTitle>Recommend Movie</S.RecommendTitle>
+          <S.RecommendTitle>RECOMMEND MOVIE</S.RecommendTitle>
 
           <MovieCarousel
             list={recommends}

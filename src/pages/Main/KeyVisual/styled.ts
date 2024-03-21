@@ -168,7 +168,7 @@ export const Poster = styled.figure`
   overflow: hidden;
   position: relative;
   border-radius: 10px;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 1;
 
   &:before {
     content: "";
@@ -183,16 +183,14 @@ export const Poster = styled.figure`
 
   img {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    transform: translate3d(-50%, -50%, 0);
+    top: 0;
+    left: 0;
+    max-width: 100%;
   }
 `;
 
 export const SliderItem = styled(SwiperSlide)`
   position: relative;
-  /* max-width: 1280px; */
 `;
 
 export const Slider = styled(Swiper)`

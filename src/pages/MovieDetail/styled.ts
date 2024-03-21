@@ -1,7 +1,18 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-export const showAnimation = css`
+export const TitleLayout = css`
+  font-size: 32px;
+  color: #fff;
+`;
+
+export const SectionLayout = css`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+`;
+
+export const ShowAnimation = css`
   visibility: visible;
   opacity: 1;
   transform: translate3d(0, 0, 0);
@@ -12,15 +23,21 @@ export const RecommendContent = styled.div`
 `;
 
 export const RecommendTitle = styled.h3`
-  max-width: 1280px;
-  margin: 0 auto 30px;
-  padding: 0 40px;
-  font-size: 32px;
-  color: #fff;
+  ${SectionLayout};
+  margin-bottom: 30px;
 `;
 
 export const Recommend = styled.section`
   margin-top: 100px;
+`;
+
+export const VideoTitle = styled.h3`
+  margin-bottom: 30px;
+  ${TitleLayout};
+`;
+
+export const Video = styled.section`
+  ${SectionLayout};
 `;
 
 export const OverView = styled.p<{ $show: boolean }>`
@@ -34,7 +51,7 @@ export const OverView = styled.p<{ $show: boolean }>`
   opacity: 0;
   transform: translate3d(0, -30px, 0);
   transition: all.35s linear 0.25s;
-  ${(props) => props.$show && `${showAnimation}`};
+  ${(props) => props.$show && `${ShowAnimation}`};
 `;
 
 export const TagLine = styled.strong<{ $show: boolean }>`
@@ -46,18 +63,15 @@ export const TagLine = styled.strong<{ $show: boolean }>`
   opacity: 0;
   transform: translate3d(0, -30px, 0);
   transition: all.35s linear;
-  ${(props) => props.$show && `${showAnimation}`};
+  ${(props) => props.$show && `${ShowAnimation}`};
 `;
 
 export const Story = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
+  ${SectionLayout};
 `;
 
 export const Contents = styled.div`
   margin-top: 75px;
-  /* height: 2000px; */
 `;
 
 export const CastLink = styled(Link)`
@@ -186,9 +200,7 @@ export const Wrapper = styled.div`
   display: flex;
   gap: 50px;
   position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
+  ${SectionLayout};
 `;
 
 export const MovieCard = styled.div`
