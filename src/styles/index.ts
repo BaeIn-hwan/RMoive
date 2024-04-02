@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
      background-color: ${themes.colors.background};
 
      &.scroll-lock {
-      overflow: hidden;
+      position: fixed;
      }
   }
 `;

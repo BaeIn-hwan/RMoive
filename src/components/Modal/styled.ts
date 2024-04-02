@@ -27,15 +27,15 @@ export const Modal = styled.div`
 `;
 
 export const Container = styled.div`
+  position: relative;
+  z-index: 100;
   min-width: 400px;
   max-width: 80%;
+  margin: 0 auto;
+  padding: 50px 0;
 `;
 
 export const Dimmed = styled.div`
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   z-index: 100;
   top: 0;

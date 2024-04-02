@@ -93,11 +93,11 @@ export default function Main() {
     <S.Container>
       <KeyVisual movies={popular.slice(0, 4)} />
 
-      {/* <S.Section>
+      <S.Section>
         <S.Title>Now Playing</S.Title>
 
         <MovieSlider movies={playing} />
-      </S.Section> */}
+      </S.Section>
 
       <S.Section>
         <S.Title>Popular</S.Title>
@@ -105,11 +105,11 @@ export default function Main() {
         <MovieSlider movies={popular} />
       </S.Section>
 
-      {/* <S.Section>
+      <S.Section>
         <S.Title>Top Rate</S.Title>
 
         <MovieSlider movies={topRate} />
-      </S.Section> */}
+      </S.Section>
     </S.Container>
   );
 }

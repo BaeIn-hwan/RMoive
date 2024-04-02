@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Portal from "../Portal";
 import * as S from "./styled";
 
@@ -12,6 +12,7 @@ interface IPropsModal {
 
 export default function Modal(props: IPropsModal) {
   const { title, open, close, closeCallback, children } = props;
+  const scrollY = useRef(0);
 
   const onClose = () => {
     if (closeCallback && typeof closeCallback === "function") {
@@ -24,16 +25,25 @@ export default function Modal(props: IPropsModal) {
   };
 
   useEffect(() => {
-    document.body.classList.add("scroll-lock");
+    const root = document.querySelector("#root") as HTMLDivElement;
+    scrollY.current = window.scrollY;
+
+    root.style.marginTop = `-${window.scrollY}px`;
+    root.style.position = `fixed`;
+    window.scrollTo(0, 0);
 
     return () => {
-      document.body.classList.remove("scroll-lock");
+      root.style.marginTop = ``;
+      root.style.position = ``;
+      window.scrollTo(0, scrollY.current);
+      scrollY.current = 0;
     };
   }, []);
 
   return (
     <Portal open={open}>
-      <S.Dimmed onClick={onClose}>
+      <div>
+        <S.Dimmed onClick={onClose}></S.Dimmed>
         <S.Container onClick={(e) => e.stopPropagation()}>
           <S.CloseArea>
             <S.CloseIcon onClick={onClose}>
@@ -57,7 +67,7 @@ export default function Modal(props: IPropsModal) {
             {children}
           </S.Modal>
         </S.Container>
-      </S.Dimmed>
+      </div>
     </Portal>
   );
 }
