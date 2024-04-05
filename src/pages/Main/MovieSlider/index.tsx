@@ -10,8 +10,6 @@ export default function MovieSlider(props: any) {
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
 
-  if (!(movies && movies.length)) return;
-
   return (
     <S.MovieSlider>
       <MovieCarousel

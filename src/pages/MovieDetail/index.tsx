@@ -96,22 +96,22 @@ export default function MovieDetail() {
   };
 
   const { isLoading: load01, data: detail } = useQuery({
-    queryKey: ["detail"],
+    queryKey: ["detail", id],
     queryFn: getDetail,
   });
 
   const { isLoading: load02, data: casts } = useQuery({
-    queryKey: ["casts"],
+    queryKey: ["casts", id],
     queryFn: getCast,
   });
 
   const { isLoading: load03, data: videos } = useQuery({
-    queryKey: ["videos"],
+    queryKey: ["videos", id],
     queryFn: getVideos,
   });
 
   const { isLoading: load04, data: recommends } = useQuery({
-    queryKey: ["recommends"],
+    queryKey: ["recommends", id],
     queryFn: getRecommend,
   });
 
@@ -202,16 +202,18 @@ export default function MovieDetail() {
                 <S.ModalCastsItem key={item.id}>
                   <S.ModalCastsThumb>
                     <LazyImage
-                      src={`${import.meta.env.VITE_IMAGE_URL}w92${
+                      src={`${import.meta.env.VITE_IMAGE_URL}w154${
                         item.profile_path
                       }`}
                       alt=""
                     />
                   </S.ModalCastsThumb>
-                  <S.ModalCastsCharacter>
-                    {item.character}
-                  </S.ModalCastsCharacter>
-                  <S.ModalCastsName>{item.name}</S.ModalCastsName>
+                  <S.ModalCastsInfo>
+                    <S.ModalCastsCharacter>
+                      {item.character}
+                    </S.ModalCastsCharacter>
+                    <S.ModalCastsName>{item.name}</S.ModalCastsName>
+                  </S.ModalCastsInfo>
                 </S.ModalCastsItem>
               ))}
             </S.ModalCastsList>

@@ -24,6 +24,8 @@ export const ThumbNail = styled.figure`
 
   img {
     max-width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
     transition: all 0.25s ease;
   }
 `;

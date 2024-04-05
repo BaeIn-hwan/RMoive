@@ -19,6 +19,8 @@ export default function MovieCarousel(props: T.IPropsVisualSlider) {
     pagination = false,
   } = props;
 
+  if (!(list && list.length)) return;
+
   return (
     <>
       <S.Carousel
@@ -45,6 +47,8 @@ export default function MovieCarousel(props: T.IPropsVisualSlider) {
                     }`}
                   />
                 </S.CarouselImage>
+
+                <S.CarouselTitle>{item.title}</S.CarouselTitle>
               </S.CarouselLink>
             </S.CarouselSlide>
           );

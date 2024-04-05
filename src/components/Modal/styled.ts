@@ -27,12 +27,14 @@ export const Modal = styled.div`
 `;
 
 export const Container = styled.div`
-  position: relative;
+  position: absolute;
   z-index: 100;
+  left: 50%;
   min-width: 400px;
   max-width: 80%;
   margin: 0 auto;
   padding: 50px 0;
+  transform: translate3d(-50%, 0, 0);
 `;
 
 export const Dimmed = styled.div`

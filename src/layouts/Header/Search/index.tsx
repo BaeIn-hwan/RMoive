@@ -30,6 +30,7 @@ export default function Search() {
 
       setRecent(splitList);
       window.localStorage.setItem("recent", JSON.stringify(splitList));
+      setWord("");
     }
   };
 

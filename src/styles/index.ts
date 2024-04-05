@@ -13,11 +13,11 @@ export const GlobalStyle = createGlobalStyle`
     clip: rect(1px, 1px, 1px, 1px);
   }
 
-   body {
-     background-color: ${themes.colors.background};
+  body {
+    background-color: ${themes.colors.background};
+  }
 
-     &.scroll-lock {
-      position: fixed;
-     }
+  #root {
+    width: 100%;
   }
 `;

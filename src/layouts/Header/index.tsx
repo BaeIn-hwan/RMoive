@@ -8,7 +8,6 @@ export default function Header() {
 
   const stickyHeader = () => {
     const target = headerRef.current!;
-    // const headerHeight = target.clientHeight;
 
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
       target.classList.add("active");

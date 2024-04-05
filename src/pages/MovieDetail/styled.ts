@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
 
 export const SectionLayout = css`
   max-width: 1280px;
@@ -24,20 +23,30 @@ export const ModalCastsName = styled.span`
 
 export const ModalCastsCharacter = styled.span`
   display: block;
-  margin-top: 10px;
+
   font-size: 16px;
+`;
+
+export const ModalCastsInfo = styled.div`
+  margin-top: 10px;
 `;
 
 export const ModalCastsThumb = styled.figure`
   overflow: hidden;
   font-size: 0;
-  width: 92px;
+  width: 100px;
   margin: 0 auto;
   border-radius: 10px;
+
+  img {
+    max-width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+  }
 `;
 
 export const ModalCastsItem = styled.li`
-  max-width: 92px;
+  max-width: 100px;
   text-align: center;
 `;
 

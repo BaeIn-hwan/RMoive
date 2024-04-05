@@ -77,7 +77,6 @@ export const Search = styled.div`
     overflow: visible;
     width: 240px;
     box-shadow: 0 0 4px 4px rgb(255 255 255 / 30%);
-    transition: width 0.35s linear;
 
     ${SearchIcon} {
       cursor: default;
