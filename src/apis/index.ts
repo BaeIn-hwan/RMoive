@@ -7,7 +7,10 @@ const apiRequest = axios.create({
     "Content-Type": "application/json",
   },
   timeout: 50000,
-  paramsSerializer: function (params) {
+  params: {
+    language: "ko-KR",
+  },
+  paramsSerializer(params) {
     return qs.stringify({
       api_key: `${import.meta.env.VITE_API_KEY}`,
       ...params,

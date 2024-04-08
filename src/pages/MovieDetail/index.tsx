@@ -14,11 +14,68 @@ import RecommendComponent from "@/pages/MovieDetail/Recommend";
 import Modal from "@/components/Modal";
 import LazyImage from "@/components/LazyImage";
 
+type CommonQuery = {
+  type?: "movie" | "tv";
+  id: string | undefined;
+};
+
+const getDetail = async ({ type, id }: CommonQuery) => {
+  try {
+    const response = await apiRequest(`/${type}/${id}`, {
+      method: "get",
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(`GetDetail Error.. ${error}`);
+    return error;
+  }
+};
+
+const getCast = async ({ type, id }: CommonQuery) => {
+  try {
+    const response = await apiRequest(`/${type}/${id}/credits`, {
+      method: "get",
+    });
+
+    return response.data.cast;
+  } catch (error) {
+    console.error(`GetCast Error.. ${error}`);
+    return error;
+  }
+};
+
+const getVideos = async ({ type, id }: CommonQuery) => {
+  try {
+    const response = await apiRequest(`/${type}/${id}/videos`, {
+      method: "get",
+    });
+
+    return response.data.results;
+  } catch (error) {
+    console.error(`GetVideos Error.. ${error}`);
+    return error;
+  }
+};
+
+const getRecommend = async ({ type, id }: CommonQuery) => {
+  try {
+    const response = await apiRequest(`/${type}/${id}/recommendations`, {
+      method: "get",
+      params: {
+        page: 1,
+      },
+    });
+
+    return response.data.results;
+  } catch (error) {
+    console.error(`GetRecommend Error.. ${error}`);
+    return error;
+  }
+};
+
 export default function MovieDetail() {
-  const { type, id } = useParams<{
-    type?: "movie" | "tv";
-    id: string | undefined;
-  }>();
+  const { type, id } = useParams<CommonQuery>();
 
   const [castModal, setCastModal] = useState<boolean>(false);
 
@@ -30,89 +87,24 @@ export default function MovieDetail() {
     threshold: 0.25,
   });
 
-  const getDetail = async () => {
-    try {
-      const response = await apiRequest(`/${type}/${id}`, {
-        method: "get",
-        params: {
-          language: "ko-KR",
-        },
-      });
-
-      return response.data;
-    } catch (error) {
-      console.error(`GetDetail Error.. ${error}`);
-      return error;
-    }
-  };
-
-  const getCast = async () => {
-    try {
-      const response = await apiRequest(`/${type}/${id}/credits`, {
-        method: "get",
-        params: {
-          language: "ko-KR",
-        },
-      });
-
-      return response.data.cast;
-    } catch (error) {
-      console.error(`GetCast Error.. ${error}`);
-      return error;
-    }
-  };
-
-  const getVideos = async () => {
-    try {
-      const response = await apiRequest(`/${type}/${id}/videos`, {
-        method: "get",
-        params: {
-          language: "ko-KR",
-        },
-      });
-
-      return response.data.results;
-    } catch (error) {
-      console.error(`GetVideos Error.. ${error}`);
-      return error;
-    }
-  };
-
-  const getRecommend = async () => {
-    try {
-      const response = await apiRequest(`/${type}/${id}/recommendations`, {
-        method: "get",
-        params: {
-          language: "ko-KR",
-          page: 1,
-        },
-      });
-
-      return response.data.results;
-    } catch (error) {
-      console.error(`GetRecommend Error.. ${error}`);
-      return error;
-    }
-  };
-
   const { isLoading: load01, data: detail } = useQuery({
     queryKey: ["detail", id],
-    queryFn: getDetail,
+    queryFn: () => getDetail({ type, id }),
   });
 
   const { isLoading: load02, data: casts } = useQuery({
     queryKey: ["casts", id],
-    queryFn: getCast,
+    queryFn: () => getCast({ type, id }),
   });
 
   const { isLoading: load03, data: videos } = useQuery({
     queryKey: ["videos", id],
-    queryFn: getVideos,
+    queryFn: () => getVideos({ type, id }),
   });
 
   const { isLoading: load04, data: recommends } = useQuery({
     queryKey: ["recommends", id],
-    queryFn: getRecommend,
+    queryFn: () => getRecommend({ type, id }),
   });
 
   if (load01 && load02 && load03 && load04) return <div>Loading...</div>;

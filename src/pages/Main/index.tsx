@@ -20,7 +20,6 @@ export default function Main() {
         method: "get",
         params: {
           page: 1,
-          language: "ko-KR",
         },
       });
 
@@ -43,7 +42,6 @@ export default function Main() {
         method: "get",
         params: {
           page: 1,
-          language: "ko-KR",
         },
       });
 
@@ -66,7 +64,6 @@ export default function Main() {
         method: "get",
         params: {
           page: 1,
-          language: "ko-KR",
         },
       });
 

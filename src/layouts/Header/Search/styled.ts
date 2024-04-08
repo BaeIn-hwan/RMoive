@@ -11,7 +11,7 @@ export const RecentEmpty = styled.span`
 
 export const RecentItem = styled.li`
   &:not(:first-child) {
-    margin-top: 6px;
+    margin-top: 8px;
   }
 `;
 

@@ -15,6 +15,7 @@ export default defineConfig((payload) => {
     },
 
     server: {
+      host: true,
       open: true,
     },
   };

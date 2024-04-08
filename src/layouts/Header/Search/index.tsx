@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as S from "./styled";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
   const [open, setOpen] = useState(false);
-
   const [word, setWord] = useState("");
   const [searchFocus, setSearchFocus] = useState(false);
+  const [recent, setRecent] = useLocalStorage("recent");
 
-  const [recent, setRecent] = useState<string[] | []>([]);
+  const navigate = useNavigate();
 
   const onSearchOpen = () => {
     setOpen(true);
@@ -24,6 +26,11 @@ export default function Search() {
 
   const onSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
+      if (word.trim() === "") {
+        alert("검색어를 입력해주세요.");
+        return;
+      }
+
       const copyRecent = [...recent];
       copyRecent.unshift(word);
       const splitList = [...new Set([...copyRecent])].slice(0, 10);
@@ -31,14 +38,10 @@ export default function Search() {
       setRecent(splitList);
       window.localStorage.setItem("recent", JSON.stringify(splitList));
       setWord("");
+      navigate(`search?keyword=${word}`);
+      setOpen(false);
     }
   };
-
-  useEffect(() => {
-    if (window.localStorage.getItem("recent")) {
-      setRecent(JSON.parse(window.localStorage.getItem("recent")!));
-    }
-  }, []);
 
   return (
     <S.Search className={open ? "on" : ""} onMouseLeave={onSearchClose}>

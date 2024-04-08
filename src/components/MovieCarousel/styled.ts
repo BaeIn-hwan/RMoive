@@ -12,11 +12,14 @@ export const CarouselTitle = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 5px;
+  padding: 10px;
   background-color: rgba(0 0 0 / 50%);
   font-size: 16px;
   font-weight: 600;
   color: #fff;
+  text-align: center;
+  word-break: keep-all;
+  word-wrap: break-word;
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s ease;

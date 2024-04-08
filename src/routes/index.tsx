@@ -3,10 +3,9 @@ import { RouteObject } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 
 import Main from "@/pages/Main";
-// import CategoryList from "@/pages/CategoryList";
 import MovieDetail from "@/pages/MovieDetail";
 import ScrollTop from "./ScrollTop";
-// import Test from "@/pages/Test";
+import MovieSearch from "@/pages/MovieSearch";
 
 const moives: RouteObject[] = [
   {
@@ -14,10 +13,10 @@ const moives: RouteObject[] = [
     element: <Main />,
     index: true,
   },
-  // {
-  //   path: "/:type",
-  //   element: <CategoryList />,
-  // },
+  {
+    path: "/search",
+    element: <MovieSearch />,
+  },
   {
     path: "/:type/detail/:id",
     element: <MovieDetail />,
