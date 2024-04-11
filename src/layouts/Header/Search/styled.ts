@@ -1,15 +1,37 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const RecentEmpty = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   min-height: 80px;
   font-size: 14px;
   text-align: center;
 `;
 
+export const RecentDelete = styled.button.attrs({ type: "button" })`
+  width: 14px;
+  font-size: 0;
+
+  svg {
+  }
+`;
+
+export const RecentTitle = styled(Link)`
+  flex: 0 1 auto;
+  max-width: calc(100% - 24px);
+  font-size: 14px;
+  color: #000;
+`;
+
 export const RecentItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
   &:not(:first-child) {
     margin-top: 8px;
   }

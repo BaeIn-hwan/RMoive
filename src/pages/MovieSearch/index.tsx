@@ -3,6 +3,9 @@ import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "@/apis";
 import Pagination from "@/components/Pagination";
+import * as S from "./styled";
+
+import NoImage from "@/assets/no-image.png";
 
 const getSearchList = async ({
   page,
@@ -16,6 +19,7 @@ const getSearchList = async ({
       method: "get",
       params: {
         query: query,
+        include_adult: true,
         page,
       },
     });
@@ -64,21 +68,37 @@ export default function MovieSearch() {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div>
-      {data.results.map((item) => (
-        <div key={item.id}>
-          {/* <figure>
-            <img
-              src={`${import.meta.env.VITE_IMAGE_URL}w200${item.poster_path}`}
-              alt=""
-            />
-          </figure> */}
-          {item.title}
-          {/* {JSON.stringify(item)} */}
-        </div>
-      ))}
+    <S.Container>
+      {data.results && data.results.length ? (
+        <S.MovieList>
+          {data.results.map((item) => (
+            <S.MovieItem key={item.id}>
+              <S.MovieLink to={`/movie/detail/${item.id}`}>
+                <S.MovieThumb>
+                  <img
+                    src={
+                      item.poster_path
+                        ? `${import.meta.env.VITE_IMAGE_URL}w300${
+                            item.poster_path
+                          }`
+                        : NoImage
+                    }
+                    alt=""
+                  />
+                </S.MovieThumb>
 
-      {data.results && data.results.length && (
+                <S.MovieTitle>{item.title}</S.MovieTitle>
+              </S.MovieLink>
+            </S.MovieItem>
+          ))}
+        </S.MovieList>
+      ) : (
+        <S.EmptyContent>
+          <em>"{searchParams.get("keyword")}"</em>에 대한 검색어가 없습니다.
+        </S.EmptyContent>
+      )}
+
+      {data.results && data.results.length > 0 && (
         <Pagination
           current={pagination.page}
           total={pagination.total}
@@ -87,6 +107,6 @@ export default function MovieSearch() {
           onChange={onPagination}
         />
       )}
-    </div>
+    </S.Container>
   );
 }

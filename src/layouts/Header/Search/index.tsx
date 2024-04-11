@@ -7,7 +7,7 @@ export default function Search() {
   const [open, setOpen] = useState(false);
   const [word, setWord] = useState("");
   const [searchFocus, setSearchFocus] = useState(false);
-  const [recent, setRecent] = useLocalStorage("recent");
+  const [recent, setRecent] = useLocalStorage<string[] | [] | null>("recent");
 
   const navigate = useNavigate();
 
@@ -24,6 +24,14 @@ export default function Search() {
     setSearchFocus(false);
   };
 
+  const onDeleteRecent = (index: number) => {
+    if (!(recent && recent.length)) return;
+
+    const copyRecent = [...recent];
+    copyRecent.splice(index, 1);
+    setRecent(copyRecent);
+  };
+
   const onSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
       if (word.trim() === "") {
@@ -31,12 +39,11 @@ export default function Search() {
         return;
       }
 
-      const copyRecent = [...recent];
+      const copyRecent = recent && recent.length ? [...recent] : [];
       copyRecent.unshift(word);
       const splitList = [...new Set([...copyRecent])].slice(0, 10);
 
       setRecent(splitList);
-      window.localStorage.setItem("recent", JSON.stringify(splitList));
       setWord("");
       navigate(`search?keyword=${word}`);
       setOpen(false);
@@ -76,7 +83,25 @@ export default function Search() {
             {recent && recent.length ? (
               recent.map((item, i) => (
                 <S.RecentItem key={i}>
-                  {i !== 9 ? `0${i + 1}` : i + 1}. {item}
+                  <S.RecentTitle to={`search?keyword=${item}`}>
+                    {item}
+                  </S.RecentTitle>
+
+                  <S.RecentDelete onClick={() => onDeleteRecent(i)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18 18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </S.RecentDelete>
                 </S.RecentItem>
               ))
             ) : (

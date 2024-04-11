@@ -28,7 +28,7 @@ export default function Header() {
     <S.Header ref={headerRef}>
       <S.Container>
         <S.Logo>
-          <S.LogoLink to="/">LOGO</S.LogoLink>
+          <S.LogoLink to="/">MOVIE</S.LogoLink>
         </S.Logo>
 
         <Search />

@@ -35,7 +35,6 @@ export default function Pagination(props: T.IPropsPagination) {
   };
 
   useEffect(() => {
-    console.log(props);
     init();
   }, [props]);
 
@@ -43,10 +42,7 @@ export default function Pagination(props: T.IPropsPagination) {
 
   return (
     <S.Pagination>
-      <S.PaginationFirst
-        disabled={current < range}
-        onClick={() => onPageMove(1)}
-      >
+      <S.PaginationFirst disabled={current === 1} onClick={() => onPageMove(1)}>
         <span className="blind">처음 이동</span>
       </S.PaginationFirst>
       <S.PaginationPrev
@@ -76,7 +72,7 @@ export default function Pagination(props: T.IPropsPagination) {
         <span className="blind">다음 이동</span>
       </S.PaginationNext>
       <S.PaginationLast
-        disabled={list.length - range < current}
+        disabled={list.length === current}
         onClick={() => onPageMove(list.length)}
       >
         <span className="blind">마지막 이동</span>
