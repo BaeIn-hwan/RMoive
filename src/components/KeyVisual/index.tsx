@@ -1,8 +1,7 @@
+import { Link } from "react-router-dom";
 import SwiperCore from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
-
 import * as S from "./styled";
-import { Link } from "react-router-dom";
 
 interface IPropsItem {
   adult: boolean;
@@ -29,20 +28,24 @@ export default function KeyVisual({ movies }: { movies: IPropsItem[] }) {
 
   return (
     <S.Container>
-      <S.Slider
+      <S.SlideContainer
         a11y={{
           enabled: true,
         }}
         centeredSlides={true}
-        navigation={true}
+        navigation={{
+          prevEl: ".slide-nav-prev",
+          nextEl: ".slide-nav-next",
+        }}
         pagination={{
           clickable: true,
+          el: ".slide-page",
         }}
         spaceBetween={25}
       >
         {movies.map((item: IPropsItem, i: number) => {
           return (
-            <S.SliderItem key={i}>
+            <S.SlideItem key={i}>
               <Link to={`/movie/detail/${item.id}`}>
                 <S.Poster>
                   <img
@@ -60,10 +63,47 @@ export default function KeyVisual({ movies }: { movies: IPropsItem[] }) {
                   )}
                 </S.Info>
               </Link>
-            </S.SliderItem>
+            </S.SlideItem>
           );
         })}
-      </S.Slider>
+      </S.SlideContainer>
+
+      <S.SlidePagination className="slide-page"></S.SlidePagination>
+
+      <S.SlideNavPrev className="slide-nav-prev">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </S.SlideNavPrev>
+      <S.SlideNavNext className="slide-nav-next">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          width={40}
+          height={40}
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </S.SlideNavNext>
     </S.Container>
   );
 }

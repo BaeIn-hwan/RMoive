@@ -55,7 +55,7 @@ export const Reset = css`
   textarea {
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 100%;
     font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
       "Helvetica Neue", sans-serif;

@@ -1,111 +1,63 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import apiRequest from "@/apis";
-// import useMovies from "@/store/movies";
-
-import KeyVisual from "@/pages/Main/KeyVisual";
+import KeyVisual from "@/components/KeyVisual";
 import MovieSlider from "@/pages/Main/MovieSlider";
 
 import * as S from "./styled";
+import {
+  getPlayingMovies,
+  getPopularMovies,
+  getTopRateMovies,
+} from "@/apis/modules/movies";
 
 export default function Main() {
-  // const { popular, setPopular } = useMovies();
-  const [playing, setPlaying] = useState([]);
-  const [popular, setPopular] = useState([]);
-  const [topRate, setTopRate] = useState([]);
+  const {
+    isLoading: load01,
+    error: error01,
+    data: playingList,
+  } = useQuery({
+    queryKey: ["playingMovie"],
+    queryFn: () => getPlayingMovies(),
+  });
 
-  const getPlayingMovies = async () => {
-    try {
-      const response = await apiRequest(`/movie/now_playing`, {
-        method: "get",
-        params: {
-          page: 1,
-        },
-      });
+  const {
+    isLoading: load02,
+    error: error02,
+    data: popularList,
+  } = useQuery({
+    queryKey: ["playingMovie"],
+    queryFn: () => getPopularMovies(),
+  });
 
-      if (
-        response &&
-        response.data &&
-        response.data.results &&
-        response.data.results.length
-      ) {
-        setPlaying(response.data.results);
-      }
-    } catch (error) {
-      console.error(`getPlayingMovies Error.. ${error}`);
-    }
-  };
-
-  const getPopularMovies = async () => {
-    try {
-      const response = await apiRequest(`/movie/popular`, {
-        method: "get",
-        params: {
-          page: 1,
-        },
-      });
-
-      if (
-        response &&
-        response.data &&
-        response.data.results &&
-        response.data.results.length
-      ) {
-        setPopular(response.data.results);
-      }
-    } catch (error) {
-      console.error(`GetPopularMovies Error.. ${error}`);
-    }
-  };
-
-  const getTopRateMovies = async () => {
-    try {
-      const response = await apiRequest(`/movie/top_rated`, {
-        method: "get",
-        params: {
-          page: 1,
-        },
-      });
-
-      if (
-        response &&
-        response.data &&
-        response.data.results &&
-        response.data.results.length
-      ) {
-        setTopRate(response.data.results);
-      }
-    } catch (error) {
-      console.error(`getTopRateMovies Error.. ${error}`);
-    }
-  };
-
-  useEffect(() => {
-    getPlayingMovies();
-    getPopularMovies();
-    getTopRateMovies();
-  }, []);
+  const {
+    isLoading: load03,
+    error: error03,
+    data: topRateList,
+  } = useQuery({
+    queryKey: ["playingMovie"],
+    queryFn: () => getTopRateMovies(),
+  });
 
   return (
     <S.Container>
-      <KeyVisual movies={popular.slice(0, 4)} />
+      <KeyVisual movies={playingList} />
 
       <S.Section>
         <S.Title>Now Playing</S.Title>
 
-        <MovieSlider movies={playing} />
+        <MovieSlider movies={playingList} />
       </S.Section>
 
       <S.Section>
         <S.Title>Popular</S.Title>
 
-        <MovieSlider movies={popular} />
+        <MovieSlider movies={popularList} />
       </S.Section>
 
       <S.Section>
         <S.Title>Top Rate</S.Title>
 
-        <MovieSlider movies={topRate} />
+        <MovieSlider movies={topRateList} />
       </S.Section>
     </S.Container>
   );

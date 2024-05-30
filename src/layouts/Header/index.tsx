@@ -1,18 +1,18 @@
 import { useEffect, useRef } from "react";
 
 import * as S from "./styled";
-import Search from "./Search";
+import Search from "./GlobalSearch";
 
-export default function Header() {
+function Header() {
   const headerRef = useRef<HTMLElement | null>(null);
 
   const stickyHeader = () => {
     const target = headerRef.current!;
 
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-      target.classList.add("active");
+      target.classList.add("sticky");
     } else {
-      target.classList.remove("active");
+      target.classList.remove("sticky");
     }
   };
 
@@ -28,7 +28,9 @@ export default function Header() {
     <S.Header ref={headerRef}>
       <S.Container>
         <S.Logo>
-          <S.LogoLink to="/">MOVIE</S.LogoLink>
+          <S.LogoLink to="/">
+            <img src={require("@/assets/images/logo.png")} alt="" />
+          </S.LogoLink>
         </S.Logo>
 
         <Search />
@@ -36,3 +38,5 @@ export default function Header() {
     </S.Header>
   );
 }
+
+export default Header;

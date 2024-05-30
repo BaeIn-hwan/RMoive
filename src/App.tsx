@@ -7,8 +7,6 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "@/styles/modules/colors";
 import { GlobalStyle } from "@/styles";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const router = createBrowserRouter(Routes());
 const queryClient = new QueryClient();
