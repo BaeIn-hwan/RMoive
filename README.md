@@ -1,4 +1,4 @@
-# React Chat Clone Coding(Lama Dev)
+# React Movie App
 
 ## ✏️ 내용
 TMDB API를 이용한 영화 사이트
