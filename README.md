@@ -1,19 +1,16 @@
-# React Movie
+# React Chat Clone Coding(Lama Dev)
 
-## Period
-2024/02 ~ 2024/03 (1Month)
+## ✏️ 내용
+```TMDB API를 이용한 영화 사이트```
 
-## Skill
-React, React Query, Styled Component, SCSS, HTML5
+## 📅 기간
+```2024.02 - 2024.03```
 
-## Description
-TMDB Open API를 이용하여 영화에 대한 리스트 및 디테일 페이지를 볼 수 있는 사이트 입니다.
-
-## Setting
+## ⚙️ 환경설정
 ```
-npm install
+- node : v20.0.0
+- npm : v9.6.4
 ```
 
-```
-npm run dev
-```
+## 📖 Skill
+```React, React Query, Styled Component, SCSS, html5```
